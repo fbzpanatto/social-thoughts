@@ -12,7 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatIconModule
   ],
   templateUrl: './create-thought.component.html',
-  styleUrl: './create-thought.component.css',
+  styleUrls: ['./create-thought.component.css', '../../styles/generic.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateThoughtComponent { }

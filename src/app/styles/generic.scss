@@ -6,6 +6,15 @@ mat-toolbar {
   background-color: #fff;
 }
 
+.mat-mdc-fab {
+  background: linear-gradient(
+    to right bottom,
+    #EB054E 0%,
+    #DB0A84 50%,
+    #A212D5 100%
+    );
+}
+
 .mat-mdc-radio-button.mat-primary {
   --mdc-radio-disabled-selected-icon-color: #fff;
   --mdc-radio-disabled-unselected-icon-color: #fff;
