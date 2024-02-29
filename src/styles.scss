@@ -6,25 +6,3 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; min-width: 320px; }
-
-
-.mat-mdc-radio-button.mat-primary {
-
-
-  --mdc-radio-disabled-selected-icon-color: #fff;
-  --mdc-radio-disabled-unselected-icon-color: #fff;
-  --mdc-radio-unselected-hover-icon-color: #fff;
-  --mdc-radio-unselected-icon-color: #fff;
-  --mdc-radio-unselected-pressed-icon-color: #fff;
-
-  --mdc-radio-selected-hover-icon-color: #fff;
-  --mdc-radio-selected-focus-icon-color: #fff;
-  --mdc-radio-selected-icon-color: #fff;
-  --mdc-radio-selected-pressed-icon-color: #fff;
-  --mdc-radio-selected-pressed-icon-color: #fff;
-
-  --mat-radio-ripple-color: #fff;
-  --mat-radio-checked-ripple-color: #fff;
-  --mat-radio-disabled-label-color: #fff;
-
-}
