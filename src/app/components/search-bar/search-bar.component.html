@@ -1,3 +1,12 @@
 <mat-toolbar>
   <input type="text" placeholder="no que está pensando...">
+
+  <mat-radio-group (change)="select($event)">
+    <mat-radio-button value="add" color="primary">
+      <span>ADD</span>
+    </mat-radio-button>
+    <mat-radio-button value="search" color="primary">
+      <span>SEARCH</span>
+    </mat-radio-button>
+  </mat-radio-group>
 </mat-toolbar>

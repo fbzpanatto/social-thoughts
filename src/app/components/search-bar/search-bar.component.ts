@@ -3,6 +3,9 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatRadioChange, MatRadioModule } from '@angular/material/radio';
+
+
 
 @Component({
   selector: 'app-search-bar',
@@ -11,10 +14,19 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     CommonModule,
     MatToolbarModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatRadioModule
   ],
   templateUrl: './search-bar.component.html',
   styleUrls: ['./search-bar.component.css', '../../styles/generic.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SearchBarComponent { }
+export class SearchBarComponent {
+
+
+select($event: MatRadioChange) {
+
+  console.log($event.value)
+
+}
+}

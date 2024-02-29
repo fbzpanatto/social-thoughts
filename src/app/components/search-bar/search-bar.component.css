@@ -4,12 +4,14 @@
   z-index: 1;
 
   mat-toolbar {
+
     background: linear-gradient(
     to right bottom,
     #EB054E 0%,
     #DB0A84 50%,
     #A212D5 100%
-  );
+    );
+
     input {
       width: 100%;
       border: none;
@@ -19,6 +21,15 @@
       height: 36px;
       font-size: 16pt;
       color: #333;
+    }
+
+    mat-radio-group {
+      mat-radio-button {
+        span {
+          color: #fff;
+          font-weight: bold;
+        }
+      }
     }
   }
 }
