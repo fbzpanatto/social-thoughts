@@ -14,7 +14,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatIconModule
   ],
   templateUrl: './search-bar.component.html',
-  styleUrl: './search-bar.component.css',
+  styleUrls: ['./search-bar.component.css', '../../styles/generic.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchBarComponent { }

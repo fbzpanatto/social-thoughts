@@ -15,7 +15,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatIconModule
   ],
   templateUrl: './toolbar.component.html',
-  styleUrl: './toolbar.component.css',
+  styleUrls: ['./toolbar.component.css', '../../styles/generic.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ToolbarComponent { }
