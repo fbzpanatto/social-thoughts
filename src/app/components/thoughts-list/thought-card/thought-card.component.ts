@@ -7,7 +7,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   imports: [
     CommonModule,
   ],
-  template: `<p>thought-card works!</p>`,
+  templateUrl: './thought-card.component.html',
   styleUrl: './thought-card.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
