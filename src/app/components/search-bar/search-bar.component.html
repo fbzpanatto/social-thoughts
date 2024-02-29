@@ -1,12 +1,12 @@
 <mat-toolbar>
-  <input type="text" placeholder="write your thought...">
+  <textarea type="text" placeholder="write your thought..." rows="2"></textarea>
 
   <mat-radio-group (change)="select($event)">
     <mat-radio-button value="add" color="primary">
-      <span>ADD</span>
+      <span>SEARCH</span>
     </mat-radio-button>
     <mat-radio-button value="search" color="primary">
-      <span>SEARCH</span>
+      <span>ADD</span>
     </mat-radio-button>
   </mat-radio-group>
 </mat-toolbar>

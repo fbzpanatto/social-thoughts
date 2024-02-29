@@ -4,7 +4,7 @@
   z-index: 1;
 
   mat-toolbar {
-
+    position: relative;
     background: linear-gradient(
     to right bottom,
     #EB054E 0%,
@@ -12,19 +12,24 @@
     #A212D5 100%
     );
 
-    input {
+    textarea {
       width: 100%;
-      border: none;
+      border: 1px solid #DB0A84;
       border-radius: 4px;
       outline: none;
       padding: 4px 16px;
-      height: 36px;
-      font-size: 16pt;
+      min-height: 36px;
+      max-height: 100px;
+      resize: vertical;
       color: #333;
       font-style: italic;
+      letter-spacing: .05rem;
     }
 
     mat-radio-group {
+
+      padding-left: 16px;
+
       mat-radio-button {
         span {
           color: #fff;
