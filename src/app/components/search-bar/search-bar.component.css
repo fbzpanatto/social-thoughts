@@ -21,6 +21,7 @@
       height: 36px;
       font-size: 16pt;
       color: #333;
+      font-style: italic;
     }
 
     mat-radio-group {
