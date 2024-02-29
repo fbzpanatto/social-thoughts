@@ -2,9 +2,10 @@
   position: sticky;
   top: 0;
   z-index: 1;
-  padding-bottom: 3vmin;
+  background-color: #fafafa;
 
   span {
+    color: #444;
     font-size: 3vmin;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     letter-spacing: .100rem;

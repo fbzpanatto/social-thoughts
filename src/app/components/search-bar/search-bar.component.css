@@ -3,6 +3,11 @@
   top: 64px;
   z-index: 1;
 
+  .fill {
+    height: 3vmin;
+    background-color: #fff;
+  }
+
   mat-toolbar {
     position: relative;
     background: linear-gradient(
