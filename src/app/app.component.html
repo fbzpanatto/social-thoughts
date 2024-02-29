@@ -1,4 +1,6 @@
 <app-toolbar></app-toolbar>
 <app-search-bar></app-search-bar>
 <app-thoughts-list></app-thoughts-list>
-<app-create-thought></app-create-thought>
+@if(showAddButton){
+  <app-create-thought></app-create-thought>
+}

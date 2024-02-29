@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, effect, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ToolbarComponent } from "./components/toolbar/toolbar.component";
 import { SearchBarComponent } from "./components/search-bar/search-bar.component";
 import { ThoughtsListComponent } from "./components/thoughts-list/thoughts-list.component";
 import { CreateThoughtComponent } from "./components/create-thought/create-thought.component";
+import { SeletorService } from './services/seletor.service';
 
 @Component({
     selector: 'app-root',
@@ -14,4 +15,14 @@ import { CreateThoughtComponent } from "./components/create-thought/create-thoug
 })
 export class AppComponent {
   title = 'social-thoughts';
+
+  seletorService = inject(SeletorService)
+  showAddButton: boolean = false
+
+  constructor() {
+    effect(() => {
+      const value = this.seletorService.seletor()
+      this.showAddButton = value
+    })
+  }
 }
