@@ -12,7 +12,7 @@ import { MatCardModule } from '@angular/material/card';
     MatButtonModule
   ],
   templateUrl: './thought-card.component.html',
-  styleUrl: './thought-card.component.css',
+  styleUrls: ['./thought-card.component.css', '../../../styles/generic.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ThoughtCardComponent { }
