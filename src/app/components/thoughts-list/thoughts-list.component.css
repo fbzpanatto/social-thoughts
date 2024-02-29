@@ -1,10 +1,15 @@
 :host {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  z-index: 0;
-  gap: 3vmin;
-  padding: 16px;
-
+  
+  position: relative;
   background-color: #fafafa;
+  z-index: 0;
+
+  div.thoughts-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    z-index: 0;
+    gap: 3vmin;
+    padding: 16px;
+  }
 }
