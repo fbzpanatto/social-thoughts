@@ -10,6 +10,11 @@
     flex-direction: row;
     z-index: 0;
     gap: 3vmin;
-    padding: 16px;
+    padding: 5vmin;
+
+    app-thought-card {
+      border: 1px solid #a112d531;
+      border-radius: 4px;
+    }
   }
 }
