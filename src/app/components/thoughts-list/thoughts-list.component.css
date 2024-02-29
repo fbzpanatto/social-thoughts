@@ -1,10 +1,7 @@
 :host {
   display: flex;
-  background-color: #cecece;
   flex-wrap: wrap;
   flex-direction: row;
-  /* justify-content: center; */
-  width: 100%;
   z-index: 0;
   gap: 3vmin;
   padding: 16px;

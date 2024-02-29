@@ -2,6 +2,25 @@
   position: sticky;
   top: 64px;
   z-index: 1;
+
+  mat-toolbar {
+    background: linear-gradient(
+    to right bottom,
+    #EB054E 0%,
+    #DB0A84 50%,
+    #A212D5 100%
+  );
+    input {
+      width: 100%;
+      border: none;
+      border-radius: 4px;
+      outline: none;
+      padding: 4px 16px;
+      height: 36px;
+      font-size: 16pt;
+      color: #333;
+    }
+  }
 }
 
 @media screen and (max-width: 600px) {
