@@ -7,6 +7,7 @@ import { CreateThoughtComponent } from "./components/create-thought/create-thoug
 import { SeletorService } from './services/seletor.service';
 import { FetchDataService } from './services/fetch-data.service';
 import { Timestamp } from '@angular/fire/firestore';
+import { UserInputService } from './services/user-input.service';
 
 @Component({
   selector: 'app-root',
@@ -21,6 +22,7 @@ export class AppComponent {
   seletor: Signal<boolean> = inject(SeletorService).seletor
 
   #fetchService = inject(FetchDataService)
+  #userInputService = inject(UserInputService)
 
   addThought() {
 
@@ -29,7 +31,7 @@ export class AppComponent {
     const timestamp = Timestamp.fromDate(now);
     const time = new Timestamp(timestamp.seconds, timestamp.nanoseconds)
 
-    const text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+    const text = this.#userInputService.userInputValue
 
     this.#fetchService.addThought({ textContent: text, username: 'fbzpanatto', timestamp: time, like: 0 })
   }

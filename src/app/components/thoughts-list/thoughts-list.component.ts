@@ -16,14 +16,7 @@ import { UserInputService } from '../../services/user-input.service';
 	templateUrl: './thoughts-list.component.html',
 	styleUrls: ['./thoughts-list.component.css', '../../styles/generic.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [
-		CommonModule,
-		MatCardModule,
-		MatButtonModule,
-		MatDividerModule,
-		MatIconModule,
-		ReactiveFormsModule
-	]
+	imports: [CommonModule, MatCardModule, MatButtonModule, MatDividerModule, MatIconModule, ReactiveFormsModule]
 })
 export class ThoughtsListComponent implements OnInit {
 

@@ -13,6 +13,10 @@ export class UserInputService {
     return this.#userInput.valueChanges.pipe(startWith(''), debounceTime(400), distinctUntilChanged())
   }
 
+  get userInputValue() {
+    return this.#userInput.value
+  }
+
   set userInput(formControl: FormControl) {
     this.#userInput = formControl
   }
