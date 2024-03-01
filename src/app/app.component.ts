@@ -1,4 +1,4 @@
-import { Component, OnInit, effect, inject } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ToolbarComponent } from "./components/toolbar/toolbar.component";
 import { SearchBarComponent } from "./components/search-bar/search-bar.component";
@@ -16,13 +16,5 @@ import { SeletorService } from './services/seletor.service';
 export class AppComponent {
   title = 'social-thoughts';
 
-  seletorService = inject(SeletorService)
-  showAddButton: boolean = false
-
-  constructor() {
-    effect(() => {
-      const value = this.seletorService.seletor()
-      this.showAddButton = value
-    })
-  }
+  seletor = inject(SeletorService).seletor
 }
