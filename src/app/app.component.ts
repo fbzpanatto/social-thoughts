@@ -30,6 +30,6 @@ export class AppComponent {
     const time = this.#utils.fireBaseTimeStamp()
     const text = this.#userInputService.userInputValue
 
-    this.#fetchService.addThought({ textContent: text, username: 'fbzpanatto', timestamp: time, like: 0 })
+    this.#fetchService.addThought({ textContent: text, username: 'anonymous', timestamp: time, like: 0 })
   }
 }
