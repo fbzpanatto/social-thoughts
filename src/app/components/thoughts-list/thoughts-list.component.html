@@ -1,10 +1,13 @@
 @for (thought of thoughts$ | async ; track thought.id; let idx = $index, e = $even) {
 
   <mat-card class="card">
+
     <mat-card-content>
-      <p> {{ thought?.textContent }} </p>
+      <textarea type="text" [value]="thought?.textContent"></textarea>
     </mat-card-content>
+
     <span class="spacer"></span>
+
     <mat-card-header class="header">
       <div mat-card-avatar class="header-image"></div>
       <mat-card-title>{{ thought?.username }}</mat-card-title>
@@ -18,8 +21,9 @@
         <mat-icon color="accent">delete</mat-icon>
       </button>
     </mat-card-header>
+
   </mat-card>
 
   } @empty {
-  <li> There are no items. </li>
+    <span>There are no items.</span>
   }
