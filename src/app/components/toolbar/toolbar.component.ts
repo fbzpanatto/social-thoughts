@@ -22,12 +22,15 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 })
 export class ToolbarComponent implements OnInit {
 
+
   isLargeScreen = false;
   isMediumScreen = false;
   isSmallScreen = true;
+
   mobileQuery!: MediaQueryList;
 
   private readonly _mobileQueryListener: (() => void) | undefined;
+
 
   constructor(
     private responsive: BreakpointObserver,
@@ -55,7 +58,7 @@ export class ToolbarComponent implements OnInit {
 
         this.isLargeScreen = breakpoints[minWidth960];
         this.isMediumScreen = !this.isLargeScreen && breakpoints[minWidth720];
-        this.isSmallScreen = this.isLargeScreen && !this.isMediumScreen;
+        this.isSmallScreen = !this.isLargeScreen && this.isMediumScreen;
       });
   }
 
