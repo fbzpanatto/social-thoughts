@@ -1,33 +1,20 @@
-import { Injectable } from '@angular/core';
-import { User, Thought } from '../interfaces/interfaces';
+import { Injectable, inject } from '@angular/core';
+import { User } from '../interfaces/interfaces';
+import { Firestore, collection, collectionData } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FetchDataService {
 
-  constructor() { }
+  firestore = inject(Firestore)
 
   getUsers() {
-
+    return collectionData(this.usersCollection, { idField: 'id' }) as Observable<User[]>
   }
 
-  getUserById(id: number) {
-
-  }
-
-  getUserByName(user: string) {
-
-  }
-
-  getThoughts() {
-
-  }
-
-  createUser(user: string, password: string) {
-    const el: User = { user, password }
-  }
-
-  createThought(text: string, user: any) {
+  get usersCollection() {
+    return collection(this.firestore, 'users')
   }
 }

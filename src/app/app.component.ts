@@ -1,4 +1,4 @@
-import { Component, effect, inject } from '@angular/core';
+import { Component, Signal, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ToolbarComponent } from "./components/toolbar/toolbar.component";
 import { SearchBarComponent } from "./components/search-bar/search-bar.component";
@@ -16,5 +16,5 @@ import { SeletorService } from './services/seletor.service';
 export class AppComponent {
   title = 'social-thoughts';
 
-  seletor = inject(SeletorService).seletor
+  seletor: Signal<boolean> = inject(SeletorService).seletor
 }

@@ -1,4 +1,11 @@
 <div class="thoughts-container">
+
+  <!-- @for (item of users$ | async ; track item.username) {
+    <li> {{ item.username }} - {{ item.password }} </li>
+  } @empty {
+    <li> There are no items. </li>
+  } -->
+
   <app-thought-card></app-thought-card>
   <app-thought-card></app-thought-card>
   <app-thought-card></app-thought-card>

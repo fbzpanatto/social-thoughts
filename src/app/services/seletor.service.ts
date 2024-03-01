@@ -1,17 +1,17 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, Signal, signal } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SeletorService {
 
-  #seletor = signal(false)
+  #seletor = signal<boolean>(false)
 
-  get seletor(){
+  get seletor(): Signal<boolean> {
     return this.#seletor.asReadonly()
   }
 
-  setSeletor(value: boolean) {
+  setSeletor(value: boolean): void {
     this.#seletor.update(curr => curr = value)
   }
 }
