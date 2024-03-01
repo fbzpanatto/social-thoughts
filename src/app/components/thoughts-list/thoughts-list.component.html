@@ -2,12 +2,12 @@
 
   @for (thought of thoughts$ | async ; track thought.id; let idx = $index, e = $even) {
 
-  <mat-card class="example-card">
+  <mat-card class="card">
     <mat-card-content>
       <p> {{ thought?.textContent }} </p>
     </mat-card-content>
     <mat-card-header>
-      <div mat-card-avatar class="example-header-image"></div>
+      <div mat-card-avatar class="header-image"></div>
       <mat-card-title>{{ thought?.username }}</mat-card-title>
       <mat-card-subtitle> {{ thought?.timestamp?.seconds }} </mat-card-subtitle>
       <span class="spacer"></span>

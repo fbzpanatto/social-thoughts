@@ -1,18 +1,20 @@
 :host {
 
+  display: flex;
+  flex: 1;
   height: 100%;
-  background-color: #fafafa;
+  background-color: red;
   padding: 3vmin;
 
   .container {
     display: inline-grid;
-    /* grid-template-columns: auto; */
     gap: 3vmin;
 
-    .example-card {
+    .card {
+      height: fit-content;
       z-index: 0;
 
-      .example-header-image {
+      .header-image {
         background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
         background-size: cover;
       }
@@ -24,18 +26,30 @@
   @media (min-width: 728px) {
     .container {
       grid-template-columns: auto auto;
+
+      .card {
+        height: 100%;
+      }
     }
   }
 
   @media (min-width: 1080px) {
     .container {
       grid-template-columns: auto auto auto;
+
+      .card {
+        height: 100%;
+      }
     }
   }
 
   @media (min-width: 1420px) {
     .container {
       grid-template-columns: auto auto auto auto;
+
+      .card {
+        height: 100%;
+      }
     }
   }
 }
