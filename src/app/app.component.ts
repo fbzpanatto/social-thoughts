@@ -6,8 +6,8 @@ import { ThoughtsListComponent } from "./components/thoughts-list/thoughts-list.
 import { CreateThoughtComponent } from "./components/create-thought/create-thought.component";
 import { SeletorService } from './services/seletor.service';
 import { FetchDataService } from './services/fetch-data.service';
-import { Timestamp } from '@angular/fire/firestore';
 import { UserInputService } from './services/user-input.service';
+import { Utils } from './utils/utils';
 
 @Component({
   selector: 'app-root',
@@ -21,16 +21,13 @@ export class AppComponent {
   title = 'social-thoughts';
   seletor: Signal<boolean> = inject(SeletorService).seletor
 
+  #utils = inject(Utils)
   #fetchService = inject(FetchDataService)
   #userInputService = inject(UserInputService)
 
   addThought() {
 
-    // TODO: movo to a service
-    const now = new Date();
-    const timestamp = Timestamp.fromDate(now);
-    const time = new Timestamp(timestamp.seconds, timestamp.nanoseconds)
-
+    const time = this.#utils.fireBaseTimeStamp()
     const text = this.#userInputService.userInputValue
 
     this.#fetchService.addThought({ textContent: text, username: 'fbzpanatto', timestamp: time, like: 0 })
