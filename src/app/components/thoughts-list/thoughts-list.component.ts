@@ -5,30 +5,36 @@ import { Observable } from 'rxjs';
 import { Thought } from '../../interfaces/interfaces';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import {MatDividerModule} from '@angular/material/divider';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-    selector: 'app-thoughts-list',
-    standalone: true,
-    templateUrl: './thoughts-list.component.html',
-    styleUrls: ['./thoughts-list.component.css', '../../styles/generic.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [
-        CommonModule,
-        MatCardModule,
-        MatButtonModule,
-        MatDividerModule
-    ]
+	selector: 'app-thoughts-list',
+	standalone: true,
+	templateUrl: './thoughts-list.component.html',
+	styleUrls: ['./thoughts-list.component.css', '../../styles/generic.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	imports: [
+		CommonModule,
+		MatCardModule,
+		MatButtonModule,
+		MatDividerModule,
+		MatIconModule
+	]
 })
 export class ThoughtsListComponent implements OnInit {
 
-    fetchService = inject(FetchDataService)
+	#fetchService = inject(FetchDataService)
 
-    thoughts$?: Observable<Thought[]>
+	thoughts$?: Observable<Thought[]>
 
-    ngOnInit(): void {
+	ngOnInit(): void { this.thoughts$ = this.#fetchService.getThoughts() }
 
-        this.thoughts$ = this.fetchService.getThoughts()
+	changeThought(thought: Thought) {
+		this.#fetchService.updateThought(thought.id as string, { ...thought, like: thought.like += 1 })
+	}
 
-    }
+	removeThought(thoughtId: string | undefined) {
+		this.#fetchService.removeThought(thoughtId as string)
+	}
 }

@@ -10,8 +10,13 @@
       <mat-card-title>{{ thought?.username }}</mat-card-title>
       <mat-card-subtitle> {{ thought?.timestamp?.seconds }} </mat-card-subtitle>
       <span class="spacer"></span>
-      <button mat-button>LIKE</button>
-      <button mat-button>SHARE</button>
+      <button class="like-btn" mat-button (click)="changeThought(thought)">
+        <mat-icon color="primary">thumb_up</mat-icon>
+        <span>{{ thought.like }}</span>
+      </button>
+      <button mat-button (click)="removeThought(thought.id)">
+        <mat-icon color="accent">delete</mat-icon>
+      </button>
     </mat-card-header>
   </mat-card>
 

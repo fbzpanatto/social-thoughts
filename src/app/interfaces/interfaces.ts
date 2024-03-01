@@ -6,8 +6,9 @@ export interface User {
 }
 
 export interface Thought {
-  id?: number,
+  id?: string,
   textContent: string,
   username: string,
-  timestamp: Timestamp
+  timestamp: Timestamp,
+  like: number
 }
