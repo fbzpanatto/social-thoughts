@@ -1,0 +1,15 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #fafafa;
+  overflow: auto;
+  position: relative;
+  top: 0;
+
+  app-create-thought {
+    position: fixed;
+    bottom: 5vmin;
+    right: 5vmin;
+  }
+}
