@@ -2,12 +2,20 @@
   <!-- <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
     <mat-icon>menu</mat-icon>
   </button> -->
-  <span>SOCIAL THOUGHTS</span>
+  <h1>SOCIAL THOUGHTS</h1>
   <span class="spacer"></span>
-  <!-- <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-    <mat-icon>favorite</mat-icon>
-  </button>
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-    <mat-icon>share</mat-icon>
-  </button> -->
+
+  <div class="div">
+    <button mat-flat-button>
+      <span>Register</span>
+    </button>
+    <span class="pipe">|</span>
+    <button mat-flat-button class="style">
+      @if(!isSmallScreen){
+        <mat-icon>login</mat-icon>
+      }
+      <span>Login</span>
+    </button>
+  </div>
+
 </mat-toolbar>

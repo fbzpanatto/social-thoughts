@@ -38,7 +38,9 @@
       mat-radio-button {
         span {
           color: #fff;
-          font-weight: bold;
+          letter-spacing: .100rem;
+          font-weight: lighter;
+          font-size: 2vmin;
         }
       }
     }
