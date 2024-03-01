@@ -1,7 +1,25 @@
 <div class="thoughts-container">
 
   @for (thought of thoughts$ | async ; track thought.id; let idx = $index, e = $even) {
-    <app-thought-card [thought]="thought"></app-thought-card>
+
+    <!-- <app-thought-card [thought]="thought"></app-thought-card> -->
+
+
+    <mat-card class="example-card">
+      <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
+      <mat-card-content>
+        <p> {{ thought?.textContent }} </p>
+      </mat-card-content>
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>{{ thought?.username }}</mat-card-title>
+        <mat-card-subtitle> {{ thought?.timestamp?.seconds }} </mat-card-subtitle>
+        <span class="spacer"></span>
+        <button mat-button>LIKE</button>
+        <button mat-button>SHARE</button>
+      </mat-card-header>
+    </mat-card>
+
   } @empty {
     <li> There are no items. </li>
   }

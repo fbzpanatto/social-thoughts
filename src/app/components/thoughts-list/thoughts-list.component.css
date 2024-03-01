@@ -4,6 +4,7 @@
   background-color: #fafafa;
   z-index: 0;
   height: 100%;
+  display: flex;
 
   div.thoughts-container {
     display: flex;
@@ -13,5 +14,10 @@
     gap: 3vmin;
     padding: 5vmin;
     height: inherit;
+
+    .example-header-image {
+      background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+      background-size: cover;
+    }
   }
 }
