@@ -3,7 +3,7 @@
   display: inline-grid;
   grid-template-columns: auto;
   gap: 3vmin;
-  padding: 3vmin;
+  padding: 6vmin;
 
   .card {
 
@@ -17,7 +17,7 @@
         border: none;
         outline: none;
         width: 100%;
-        height: 200px;
+        height: 10vh;
         color: #333;
         letter-spacing: .025rem;
         line-height: 18px;
@@ -56,6 +56,7 @@
 @media (min-width: 728px) {
   :host {
     grid-template-columns: auto auto;
+    padding: 3vmin;
 
     .card {
       height: 100%;
@@ -66,6 +67,7 @@
 @media (min-width: 1080px) {
   :host {
     grid-template-columns: auto auto auto;
+    padding: 3vmin;
 
     .card {
       height: 100%;
@@ -76,6 +78,7 @@
 @media (min-width: 1420px) {
   :host {
     grid-template-columns: auto auto auto auto;
+    padding: 3vmin;
 
     .card {
       height: 100%;

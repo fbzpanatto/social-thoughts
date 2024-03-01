@@ -30,7 +30,13 @@ export class ThoughtsListComponent implements OnInit {
 
 	ngOnInit(): void { this.thoughts$ = this.#fetchService.getThoughts() }
 
-	changeThought(thought: Thought) {
+	changeThoughtContent(thought: Thought, txtArea: string) {
+		if (txtArea.trim() != thought.textContent.trim()) {
+			this.#fetchService.updateThought(thought.id as string, { ...thought, textContent: txtArea })
+		}
+	}
+
+	changeThoughtLikes(thought: Thought) {
 		this.#fetchService.updateThought(thought.id as string, { ...thought, like: thought.like += 1 })
 	}
 

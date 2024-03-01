@@ -3,7 +3,7 @@
   <mat-card class="card">
 
     <mat-card-content>
-      <textarea type="text" [value]="thought?.textContent"></textarea>
+      <textarea #txtArea (blur)="changeThoughtContent(thought, txtArea.value)" type="text" [value]="thought?.textContent"></textarea>
     </mat-card-content>
 
     <span class="spacer"></span>
@@ -13,7 +13,7 @@
       <mat-card-title>{{ thought?.username }}</mat-card-title>
       <mat-card-subtitle> {{ thought?.timestamp?.seconds }} </mat-card-subtitle>
       <span class="spacer"></span>
-      <button class="like-btn" mat-button (click)="changeThought(thought)">
+      <button class="like-btn" mat-button (click)="changeThoughtLikes(thought)">
         <mat-icon color="primary">thumb_up</mat-icon>
         <span>{{ thought.like }}</span>
       </button>
