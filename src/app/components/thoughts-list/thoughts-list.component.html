@@ -1,6 +1,4 @@
-<div class="container">
-
-  @for (thought of thoughts$ | async ; track thought.id; let idx = $index, e = $even) {
+@for (thought of thoughts$ | async ; track thought.id; let idx = $index, e = $even) {
 
   <mat-card class="card">
     <mat-card-content>
@@ -19,5 +17,3 @@
   } @empty {
   <li> There are no items. </li>
   }
-
-</div>
