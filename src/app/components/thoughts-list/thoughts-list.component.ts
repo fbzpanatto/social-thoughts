@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/cor
 import { ThoughtCardComponent } from "./thought-card/thought-card.component";
 import { FetchDataService } from '../../services/fetch-data.service';
 import { Observable } from 'rxjs';
-import { User } from '../../interfaces/interfaces';
+import { Thought } from '../../interfaces/interfaces';
 
 @Component({
     selector: 'app-thoughts-list',
@@ -20,11 +20,11 @@ export class ThoughtsListComponent implements OnInit {
 
     fetchService = inject(FetchDataService)
 
-    users$?: Observable<User[]>
+    thoughts$?: Observable<Thought[]>
 
     ngOnInit(): void {
 
-        this.users$ = this.fetchService.getUsers()
+        this.thoughts$ = this.fetchService.getThoughts()
 
     }
 }

@@ -1,12 +1,13 @@
+import { Timestamp } from "@angular/fire/firestore"
+
 export interface User {
   id?: number,
-  username: string,
-  password: string
+  username: string
 }
 
 export interface Thought {
   id?: number,
-  text: string,
-  user: User,
-  date: Date
+  textContent: string,
+  username: string,
+  timestamp: Timestamp
 }

@@ -1,39 +1,9 @@
 <div class="thoughts-container">
 
-  <!-- @for (item of users$ | async ; track item.username) {
-    <li> {{ item.username }} - {{ item.password }} </li>
+  @for (thought of thoughts$ | async ; track thought.id; let idx = $index, e = $even) {
+    <app-thought-card [thought]="thought"></app-thought-card>
   } @empty {
     <li> There are no items. </li>
-  } -->
+  }
 
-  <app-thought-card></app-thought-card>
-  <app-thought-card></app-thought-card>
-  <app-thought-card></app-thought-card>
-  <app-thought-card></app-thought-card>
-  <app-thought-card></app-thought-card>
-  <app-thought-card></app-thought-card>
-  <app-thought-card></app-thought-card>
-  <app-thought-card></app-thought-card>
-  <app-thought-card></app-thought-card>
-  <app-thought-card></app-thought-card>
-  <app-thought-card></app-thought-card>
-  <app-thought-card></app-thought-card>
-  <app-thought-card></app-thought-card>
-  <app-thought-card></app-thought-card>
-  <app-thought-card></app-thought-card>
-  <app-thought-card></app-thought-card>
-  <app-thought-card></app-thought-card>
-  <app-thought-card></app-thought-card>
-  <app-thought-card></app-thought-card>
-  <app-thought-card></app-thought-card>
-  <app-thought-card></app-thought-card>
-  <app-thought-card></app-thought-card>
-  <app-thought-card></app-thought-card>
-  <app-thought-card></app-thought-card>
-  <app-thought-card></app-thought-card>
-  <app-thought-card></app-thought-card>
-  <app-thought-card></app-thought-card>
-  <app-thought-card></app-thought-card>
-  <app-thought-card></app-thought-card>
-  <app-thought-card></app-thought-card>
 </div>

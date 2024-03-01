@@ -3,6 +3,7 @@
   position: relative;
   background-color: #fafafa;
   z-index: 0;
+  height: 100%;
 
   div.thoughts-container {
     display: flex;
@@ -11,10 +12,6 @@
     z-index: 0;
     gap: 3vmin;
     padding: 5vmin;
-
-    app-thought-card {
-      border: 1px solid #a112d531;
-      border-radius: 4px;
-    }
+    height: inherit;
   }
 }
