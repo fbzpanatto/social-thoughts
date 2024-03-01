@@ -1,23 +1,42 @@
 :host {
-  
-  position: relative;
-  background-color: #fafafa;
-  z-index: 0;
+
   height: 100%;
-  display: flex;
+  background-color: #fafafa;
+  padding: 3vmin;
 
-  div.thoughts-container {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    z-index: 0;
+  .container {
+    display: inline-grid;
+    /* grid-template-columns: auto; */
     gap: 3vmin;
-    padding: 5vmin;
-    height: inherit;
 
-    .example-header-image {
-      background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-      background-size: cover;
+    .example-card {
+      z-index: 0;
+
+      .example-header-image {
+        background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+        background-size: cover;
+      }
+    }
+
+
+  }
+
+  @media (min-width: 728px) {
+    .container {
+      grid-template-columns: auto auto;
+    }
+  }
+
+  @media (min-width: 1080px) {
+    .container {
+      grid-template-columns: auto auto auto;
+    }
+  }
+
+  @media (min-width: 1420px) {
+    .container {
+      grid-template-columns: auto auto auto auto;
     }
   }
 }
+
