@@ -1,19 +1,23 @@
 :host {
 
-  background-color: #fafafa;
   display: inline-grid;
   grid-template-columns: auto;
   gap: 3vmin;
   padding: 3vmin;
-  height: 100vh;
 
   .card {
-    height: fit-content;
+
     z-index: 0;
 
-    .header-image {
-      background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-      background-size: cover;
+    .header {
+
+      border-top: 1px solid #e2e2e2;
+      background-color: #f7f7f7;
+
+      .header-image {
+        background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+        background-size: cover;
+      }
     }
   }
 }

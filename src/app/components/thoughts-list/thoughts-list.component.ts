@@ -5,17 +5,19 @@ import { Observable } from 'rxjs';
 import { Thought } from '../../interfaces/interfaces';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import {MatDividerModule} from '@angular/material/divider';
 
 @Component({
     selector: 'app-thoughts-list',
     standalone: true,
     templateUrl: './thoughts-list.component.html',
-    styleUrl: './thoughts-list.component.css',
+    styleUrls: ['./thoughts-list.component.css', '../../styles/generic.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [
         CommonModule,
         MatCardModule,
-        MatButtonModule
+        MatButtonModule,
+        MatDividerModule
     ]
 })
 export class ThoughtsListComponent implements OnInit {
