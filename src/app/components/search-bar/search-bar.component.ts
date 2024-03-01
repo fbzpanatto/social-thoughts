@@ -3,9 +3,10 @@ import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/cor
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatRadioChange, MatRadioModule } from '@angular/material/radio';
+import { MatRadioModule } from '@angular/material/radio';
 import { SeletorService } from '../../services/seletor.service';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UserInputService } from '../../services/user-input.service';
 
 @Component({
   selector: 'app-search-bar',
@@ -16,24 +17,26 @@ import { FormsModule } from '@angular/forms';
     MatButtonModule,
     MatIconModule,
     MatRadioModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   templateUrl: './search-bar.component.html',
   styleUrls: ['./search-bar.component.css', '../../styles/generic.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SearchBarComponent {
+export class SearchBarComponent implements OnInit {
 
+  userInput = new FormControl('')
   selectedRadio: number | null = 1;
 
   #seletorService = inject(SeletorService)
-  
+  #userInputService = inject(UserInputService)
+
+  ngOnInit(): void { this.#userInputService.userInput = this.userInput }
+
   select($event: number) {
-
     const el = this.options.find(option => option.id === $event)
-
     this.#seletorService.setSeletor(el?.option as boolean)
-
   }
 
   get options() {

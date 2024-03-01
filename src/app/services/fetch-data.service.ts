@@ -19,7 +19,7 @@ export class FetchDataService {
     return collectionData(this.thoughtsCollection, { idField: 'id' }) as Observable<Thought[]>
   }
 
-  addThought(thought: Thought): Observable<String>{
+  addThought(thought: Thought): Observable<String> {
     const promise = addDoc(this.thoughtsCollection, thought).then(response => response.id)
     return from(promise)
   }
@@ -31,7 +31,7 @@ export class FetchDataService {
     return from(promise)
   }
 
-  removeThought(thoughtId: string){
+  removeThought(thoughtId: string) {
     const docRef = doc(this.firestore, 'thoughts/' + thoughtId)
     const promise = deleteDoc(docRef)
     return from(promise)
@@ -41,7 +41,7 @@ export class FetchDataService {
     return collection(this.firestore, 'users')
   }
 
-  private get thoughtsCollection(){
+  private get thoughtsCollection() {
     return collection(this.firestore, 'thoughts')
   }
 }
