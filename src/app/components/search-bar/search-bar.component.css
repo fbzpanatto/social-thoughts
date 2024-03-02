@@ -43,6 +43,6 @@
 
 @media (min-width: 728px) {
   :host {
-    height: 12vh;
+    top: 12vh;
   }
 }
