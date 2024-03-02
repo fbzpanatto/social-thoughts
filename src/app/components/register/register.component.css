@@ -1,3 +1,103 @@
 :host {
-  display: block;
+  display: flex;
+  height: 100vh;
+
+  .left-container {
+    flex: 2;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2vw;
+
+    background: linear-gradient(
+      to right bottom,
+      #EB054E 0%,
+      #DB0A84 50%,
+      #A212D5 100%
+      );
+
+      h1 {
+        padding: 0 6vw;
+        color: #fff;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        letter-spacing: .100rem;
+        font-size: 2vw;
+      }
+
+      p {
+        padding: 0 6vw;
+        color: #fff;
+        font-size: 5vw;
+        line-height: 5vw;
+        text-transform: uppercase;
+        font-weight: bold;
+        letter-spacing: .3rem;
+      }
+  }
+
+  .right-container {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+    gap: 2vw;
+
+    h2 {
+      padding: 0 3vw;
+      color: #fff;
+      letter-spacing: .100rem;
+      font-size: 2vw;
+    }
+
+    p {
+      padding: 0 3vw;
+      color: #fff;
+      font-size: 1.5vw;
+      line-height: 1.5vw;
+      letter-spacing: .100rem;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      padding: 0 3vw;
+      gap: 1vmin;
+
+      input {
+
+        background-color: rgba(0, 0, 0, 0.493);
+        border: none;
+        border-radius: 4px;
+        height: 6vmin;
+        font-size: 2vmin;
+        padding: 0 2vmin;
+        outline: none;
+        color: #ebebeb;
+        font-weight: light;
+        letter-spacing: .100rem;
+
+        &::placeholder {
+          color: #575757d0;
+        }
+
+      }
+    }
+
+    button {
+      height: 6vmin;
+      font-size: 2vmin;
+      margin-top: 4vmin;
+      background-color: rgb(81, 255, 197);
+    }
+
+    background: linear-gradient(
+      to right bottom,
+      #A212D5 0%,
+      #530f6b 100%
+      );
+  }
+
+  background-color: aliceblue;
 }

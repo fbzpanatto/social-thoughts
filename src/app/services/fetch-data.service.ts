@@ -15,7 +15,6 @@ export class FetchDataService {
   }
 
   getThoughts() {
-    console.log('getThoughts')
     return collectionData(this.thoughtsCollection, { idField: 'id' }) as Observable<Thought[]>
   }
 
