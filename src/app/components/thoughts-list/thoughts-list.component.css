@@ -39,6 +39,10 @@
         gap: 8px;
         align-items: center;
 
+        mat-icon {
+          color: rgb(0, 255, 170);
+        }
+
         span {
           color: #444;
         }
