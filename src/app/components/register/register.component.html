@@ -6,23 +6,32 @@
 
 </div>
 <div class="right-container mat-elevation-z4">
-  <h2>Login</h2>
+
+  @if(isRegister()){
+    <h2>Register</h2>
+  }@else {
+    <h2>Login</h2>
+  }
 
   <p>Fulfill the fields below with your credentials.</p>
 
   <form>
+    @if(isRegister()){
+      <input type="text" placeholder="username">
+    }
     <input type="text" placeholder="email">
-    <input type="text" placeholder="username">
     <input type="text" placeholder="password">
-    <button type="button" mat-flat-button>Login</button>
+
+    @if(isRegister()) {
+      <button type="button" mat-flat-button>Register</button>
+    }@else {
+      <button type="button" mat-flat-button>Login</button>
+    }
+
+    
   </form>
 
 
 </div>
 
 
-<!-- @if(isRegister()) {
-  <span>registrando</span>
-}@else {
-  <span>login</span>
-} -->
