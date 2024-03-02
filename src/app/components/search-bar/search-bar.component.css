@@ -4,14 +4,12 @@
   z-index: 1;
 
   mat-toolbar {
-    
+
     position: relative;
-    background: linear-gradient(
-    to right bottom,
-    #EB054E 0%,
-    #DB0A84 50%,
-    #A212D5 100%
-    );
+    background: linear-gradient(to right bottom,
+        #EB054E 0%,
+        #DB0A84 50%,
+        #A212D5 100%);
 
     textarea {
       width: 100%;
@@ -40,5 +38,11 @@
         }
       }
     }
+  }
+}
+
+@media (min-width: 728px) {
+  :host {
+    height: 12vh;
   }
 }

@@ -6,6 +6,8 @@
 
   mat-toolbar {
     height: 8vh;
+
+    transition: 0.1s ease-in-out all; 
   }
 
   h1 {
@@ -44,6 +46,17 @@
           color: #A212D5;
         }
       }
+    }
+  }
+}
+
+@media (min-width: 728px) {
+  :host {
+
+    mat-toolbar {
+      height: 12vh;
+
+      transition: 0.1s ease-in-out all; 
     }
   }
 }
