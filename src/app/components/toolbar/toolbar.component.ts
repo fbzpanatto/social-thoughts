@@ -6,11 +6,12 @@ import { BreakpointObserver, MediaMatcher } from "@angular/cdk/layout";
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-toolbar',
   standalone: true,
-  imports: [CommonModule, MatToolbarModule, MatButtonModule, MatIconModule],
+  imports: [CommonModule, MatToolbarModule, MatButtonModule, MatIconModule, RouterLink],
   templateUrl: './toolbar.component.html',
   styleUrls: ['./toolbar.component.css', '../../styles/generic.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
