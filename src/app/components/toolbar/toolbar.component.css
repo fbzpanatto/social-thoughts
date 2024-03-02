@@ -4,6 +4,10 @@
   z-index: 1;
   background-color: #fafafa;
 
+  mat-toolbar {
+    height: 8vh;
+  }
+
   h1 {
     color: #444;
     font-size: 3vmin;

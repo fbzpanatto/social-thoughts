@@ -1,14 +1,10 @@
 :host {
   position: sticky;
-  top: 64px;
+  top: 8vh;
   z-index: 1;
 
-  .fill {
-    height: 3vmin;
-    background-color: #fff;
-  }
-
   mat-toolbar {
+    
     position: relative;
     background: linear-gradient(
     to right bottom,
@@ -44,11 +40,5 @@
         }
       }
     }
-  }
-}
-
-@media screen and (max-width: 600px) {
-  :host {
-    top: 56px;
   }
 }
