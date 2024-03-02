@@ -19,6 +19,10 @@ mat-toolbar {
   margin-right: 0;
 }
 
+.mat-mdc-unelevated-button>.mat-icon {
+  margin-right: 0;
+}
+
 .mat-mdc-card-content {
   padding-bottom: 16px;
 }

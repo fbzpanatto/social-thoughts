@@ -11,34 +11,35 @@
     letter-spacing: .100rem;
   }
 
-  .div {
+  div {
 
     display: flex;
     gap: 1vmin;
     align-items: center;
 
-    .pipe {
-      color: #A212D5;
-    }
-
-
     button {
-
-      mat-icon {
-        display: flex;
-        align-items: center;
-        color: #A212D5;
-        font-weight: 100;
-        font-size: 2vmin;
-      }
 
       span {
         letter-spacing: .100rem;
-        color: #A212D5;
+        color: #444;
         font-size: 2vmin;
         font-weight: lighter;
       }
-    }
 
+      &:nth-of-type(1) {
+        span {
+          text-decoration: underline;
+        }
+      }
+
+      &:nth-of-type(2) {
+
+        border: 1px solid #A212D5;
+
+        span {
+          color: #A212D5;
+        }
+      }
+    }
   }
 }
