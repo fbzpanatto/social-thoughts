@@ -10,30 +10,28 @@
     justify-content: center;
     gap: 2vw;
 
-    background: linear-gradient(
-      to right bottom,
-      #EB054E 0%,
-      #DB0A84 50%,
-      #A212D5 100%
-      );
+    background: linear-gradient(to right bottom,
+        #EB054E 0%,
+        #DB0A84 50%,
+        #A212D5 100%);
 
-      h1 {
-        padding: 0 6vw;
-        color: #fff;
-        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-        letter-spacing: .100rem;
-        font-size: 2vw;
-      }
+    h1 {
+      padding: 0 6vw;
+      color: #fff;
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+      letter-spacing: .100rem;
+      font-size: 2vw;
+    }
 
-      p {
-        padding: 0 6vw;
-        color: #fff;
-        font-size: 5vw;
-        line-height: 5vw;
-        text-transform: uppercase;
-        font-weight: bold;
-        letter-spacing: .3rem;
-      }
+    p {
+      padding: 0 6vw;
+      color: #fff;
+      font-size: 5vw;
+      line-height: 5vw;
+      text-transform: uppercase;
+      font-weight: bold;
+      letter-spacing: .3rem;
+    }
   }
 
   .right-container {
@@ -92,11 +90,9 @@
       background-color: rgb(81, 255, 197);
     }
 
-    background: linear-gradient(
-      to right bottom,
+    background: linear-gradient(to right bottom,
       #A212D5 0%,
-      #530f6b 100%
-      );
+      #530f6b 100%);
   }
 
   background-color: aliceblue;
