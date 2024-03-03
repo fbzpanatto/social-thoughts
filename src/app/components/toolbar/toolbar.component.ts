@@ -57,6 +57,10 @@ export class ToolbarComponent implements OnInit {
       });
   }
 
+  logout() {
+    this.#authService.logout();
+  }
+
   get isAuthenticated() {
 		return this.#authService.isAuthenticated
 	}
