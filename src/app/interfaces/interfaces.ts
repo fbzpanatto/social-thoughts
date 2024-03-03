@@ -14,5 +14,6 @@ export interface Thought {
   username: string,
   userUid: string,
   timestamp: Timestamp,
-  like: number
+  like: number,
+  likedBy: string[]
 }

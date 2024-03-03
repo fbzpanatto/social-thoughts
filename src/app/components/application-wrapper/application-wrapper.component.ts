@@ -41,6 +41,6 @@ export class ApplicationWrapperComponent {
     const uid = this.#authService.uid
     const username = this.#authService.username
 
-    this.#fetchService.addThought({ textContent: text, username: username, timestamp: time, like: 0, userUid: uid })
+    this.#fetchService.addThought({ textContent: text, username: username, timestamp: time, like: 0, userUid: uid, likedBy: [] })
   }
 }

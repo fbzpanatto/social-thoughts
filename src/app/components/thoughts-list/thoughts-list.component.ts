@@ -49,6 +49,9 @@ export class ThoughtsListComponent implements OnInit {
 	}
 
 	changeThoughtLikes(thought: Thought) {
+
+		thought.likedBy.push(this.uid)
+
 		this.#fetchService.updateThought(thought.id as string, { ...thought, like: thought.like += 1 })
 	}
 
