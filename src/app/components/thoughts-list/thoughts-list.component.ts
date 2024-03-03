@@ -9,6 +9,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UserInputService } from '../../services/user-input.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
 	selector: 'app-thoughts-list',
@@ -22,6 +23,7 @@ export class ThoughtsListComponent implements OnInit {
 
 	#fetchService = inject(FetchDataService)
 	#userInputService = inject(UserInputService)
+	#authService = inject(AuthService)
 
 	thoughts$: Observable<Thought[]> = new Observable()
 
@@ -52,5 +54,9 @@ export class ThoughtsListComponent implements OnInit {
 
 	removeThought(thoughtId: string | undefined) {
 		this.#fetchService.removeThought(thoughtId as string)
+	}
+
+	get isAuthenticated() {
+		return this.#authService.isAuthenticated
 	}
 }

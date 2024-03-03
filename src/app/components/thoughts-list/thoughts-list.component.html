@@ -19,9 +19,11 @@
         <mat-icon color="primary">thumb_up</mat-icon>
         <span>{{ thought.like }}</span>
       </button>
-      <button mat-button (click)="removeThought(thought.id)">
-        <mat-icon color="accent">delete</mat-icon>
-      </button>
+      @if(isAuthenticated){
+        <button mat-button (click)="removeThought(thought.id)">
+          <mat-icon color="accent">delete</mat-icon>
+        </button>
+      }
     </mat-card-header>
   
   </mat-card>
