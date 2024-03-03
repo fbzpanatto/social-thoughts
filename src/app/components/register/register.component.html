@@ -18,7 +18,7 @@
     <input matInput formControlName="password" type="password" placeholder="password">
 
     @if(isRegister()) { <button type="submit" mat-flat-button [disabled]="!form.valid">Register</button>}
-    @else { <button type="submit" mat-flat-button [disabled]="!form.valid">Login</button> }
+    @else { <button type="submit" mat-flat-button [disabled]="!form.controls.email.valid && !form.controls.password.valid">Login</button> }
   </form>
 
 </div>

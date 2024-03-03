@@ -1,5 +1,5 @@
 import { Injectable, inject, signal } from '@angular/core';
-import { Auth, createUserWithEmailAndPassword, updateProfile } from '@angular/fire/auth';
+import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from '@angular/fire/auth';
 import { User } from '../interfaces/interfaces';
 import { Observable, from } from 'rxjs';
 
@@ -15,6 +15,21 @@ export class AuthService {
   firebaseAuth = inject(Auth)
 
   constructor() { }
+
+  login(email: string, password: string): Observable<void> {
+    const promise = signInWithEmailAndPassword(this.firebaseAuth, email, password)
+      .then(response => {
+
+        this.isAuthenticated = true
+
+        this.uid = response.user.uid
+        this.username = response.user.displayName as string
+
+        console.log(this.uid, this.username)
+
+      })
+    return from(promise)
+  }
 
   register(user: User): Observable<void> {
     const promise = createUserWithEmailAndPassword(this.firebaseAuth, user.email, user.password)

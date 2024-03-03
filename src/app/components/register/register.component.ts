@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, effect, inject, signal } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit, effect, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { MatIconModule } from '@angular/material/icon';
@@ -15,7 +15,7 @@ import { AuthService } from '../../services/auth.service';
   imports: [CommonModule, MatIconModule, MatButtonModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.Default
 })
 export class RegisterComponent {
 
@@ -24,6 +24,7 @@ export class RegisterComponent {
   #router = inject(Router)
 
   isRegister = signal(true)
+  isRegisterProp?: boolean
 
   errorMessage: string | null = null;
 
@@ -39,28 +40,46 @@ export class RegisterComponent {
     }],
   })
 
-  constructor(
-    private fb: FormBuilder,
-  ) {
+  constructor(private fb: FormBuilder) {
 
     const dataSignal = toSignal<{ register?: boolean }>(this.#route.data)
 
     effect(() => {
+
+      this.setLocalValue(dataSignal()?.register as boolean)
+
       this.isRegister.update(curr => curr = dataSignal()?.register as boolean)
     }, { allowSignalWrites: true })
+  }
+
+  setLocalValue(value: boolean) {
+    this.isRegisterProp = value
   }
 
   onSubmit() {
 
     const { email, password, username } = this.form.getRawValue()
 
-    this.#authService.register({ email: email as string, password: password as string, username: username as string })
-      .subscribe({
-        next: () => this.#router.navigate(['home']),
-        error: (err) => {
-          this.errorMessage = err.code
-          console.log('this.errorMessage', this.errorMessage)
-        }
-      })
+    const condition = this.isRegister()
+
+    if (condition) {
+      this.#authService.register({ email: email as string, password: password as string, username: username as string })
+        .subscribe({
+          next: () => this.#router.navigate(['home']),
+          error: (err) => {
+            this.errorMessage = err.code
+            console.log('this.errorMessage', this.errorMessage)
+          }
+        })
+    } else {
+      this.#authService.login(email as string, password as string)
+        .subscribe({
+          next: () => this.#router.navigate(['home']),
+          error: (err) => {
+            this.errorMessage = err.code
+            console.log('this.errorMessage', this.errorMessage)
+          }
+        })
+    }
   }
 }
