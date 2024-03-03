@@ -50,9 +50,17 @@ export class ThoughtsListComponent implements OnInit {
 
 	changeThoughtLikes(thought: Thought) {
 
-		thought.likedBy.push(this.uid)
+		const element = thought.likedBy.indexOf(this.uid, 0)
 
-		this.#fetchService.updateThought(thought.id as string, { ...thought, like: thought.like += 1 })
+		if (element > -1) {
+			thought.likedBy.splice(element, 1)
+			thought.like = thought.like - 1
+		} else {
+			thought.likedBy.push(this.uid)
+			thought.like = thought.like + 1
+		}
+
+		this.#fetchService.updateThought(thought.id as string, { ...thought })
 	}
 
 	removeThought(thoughtId: string | undefined) {
@@ -63,7 +71,7 @@ export class ThoughtsListComponent implements OnInit {
 		return this.#authService.isAuthenticated
 	}
 
-	get uid(){
+	get uid() {
 		return this.#authService.uid
 	}
 
