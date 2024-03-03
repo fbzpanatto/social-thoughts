@@ -17,10 +17,10 @@
       <span class="spacer"></span>
       <button [disabled]="!isAuthenticated" class="like-btn" mat-button (click)="changeThoughtLikes(thought)">
 
-        <mat-icon [ngClass]="isAuthenticated ? 'enabled' : 'disabled'" color="primary">thumb_up</mat-icon>
+        <mat-icon [ngClass]="isAuthenticated ? 'enabled' : 'disabled'" color="primary">{{ { thought, uid}  | appCheckIcon }}</mat-icon>
 
         <span [ngClass]="isAuthenticated ? 'enabled' : 'disabled'">{{ thought.like }}</span>
-        
+
       </button>
       @if(isAuthenticated && thought.userUid === uid && thought.username === username){
       <button mat-button (click)="removeThought(thought.id)">

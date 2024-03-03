@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UserInputService } from '../../services/user-input.service';
 import { AuthService } from '../../services/auth.service';
+import { CheckIconPipe } from '../pipes/check-icon.pipe';
 
 @Component({
 	selector: 'app-thoughts-list',
@@ -17,7 +18,7 @@ import { AuthService } from '../../services/auth.service';
 	templateUrl: './thoughts-list.component.html',
 	styleUrls: ['./thoughts-list.component.css', '../../styles/generic.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [CommonModule, MatCardModule, MatButtonModule, MatDividerModule, MatIconModule, ReactiveFormsModule]
+	imports: [CommonModule, MatCardModule, MatButtonModule, MatDividerModule, MatIconModule, ReactiveFormsModule, CheckIconPipe]
 })
 export class ThoughtsListComponent implements OnInit {
 
@@ -46,6 +47,11 @@ export class ThoughtsListComponent implements OnInit {
 		if (txtArea.trim() != thought.textContent.trim()) {
 			this.#fetchService.updateThought(thought.id as string, { ...thought, textContent: txtArea })
 		}
+	}
+
+	returnIcon() {
+		console.log('passando aqui')
+		return ''
 	}
 
 	changeThoughtLikes(thought: Thought) {
