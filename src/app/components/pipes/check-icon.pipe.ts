@@ -14,9 +14,9 @@ export class CheckIconPipe implements PipeTransform {
 		const element = thought.likedBy.indexOf(uid, 0)
 
 		if (element > -1) {
-      return 'thumb_down';
+      return 'check_circle';
 		} else {
-      return 'thumb_up';
+      return 'radio_button_unchecked';
 		}
   }
 
