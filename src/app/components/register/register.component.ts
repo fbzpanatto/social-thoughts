@@ -24,7 +24,6 @@ export class RegisterComponent {
   #router = inject(Router)
 
   isRegister = signal(true)
-  isRegisterProp?: boolean
 
   errorMessage: string | null = null;
 
@@ -46,14 +45,8 @@ export class RegisterComponent {
 
     effect(() => {
 
-      this.setLocalValue(dataSignal()?.register as boolean)
-
       this.isRegister.update(curr => curr = dataSignal()?.register as boolean)
     }, { allowSignalWrites: true })
-  }
-
-  setLocalValue(value: boolean) {
-    this.isRegisterProp = value
   }
 
   onSubmit() {
