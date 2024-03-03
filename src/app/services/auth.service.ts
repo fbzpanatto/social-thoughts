@@ -44,7 +44,12 @@ export class AuthService {
   }
 
   logout(){
-    const promise = signOut(this.firebaseAuth)
+    const promise = signOut(this.firebaseAuth).then(() => {
+      this.isAuthenticated = false
+      this.uid = ''
+      this.username = ''
+
+    })
     return from(promise)
   }
 
