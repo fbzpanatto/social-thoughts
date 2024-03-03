@@ -7,9 +7,9 @@
       <textarea #txtArea (blur)="changeThoughtContent(thought, txtArea.value)" type="text"
         [value]="thought?.textContent"></textarea>
     </mat-card-content>
-  
+
     <span class="spacer"></span>
-  
+
     <mat-card-header class="header">
       <div mat-card-avatar class="header-image"></div>
       <mat-card-title>{{ thought?.username }}</mat-card-title>
@@ -20,15 +20,13 @@
         <span [ngClass]="isAuthenticated ? 'enabled' : 'disabled'">{{ thought.like }}</span>
       </button>
       @if(isAuthenticated && thought.userUid === uid && thought.username === username){
-        <button mat-button (click)="removeThought(thought.id)">
-          <mat-icon color="accent">delete</mat-icon>
-        </button>
+      <button mat-button (click)="removeThought(thought.id)">
+        <mat-icon color="accent">delete</mat-icon>
+      </button>
       }
     </mat-card-header>
-  
+
   </mat-card>
 </div>
 
-} @empty {
-<span>There are no items.</span>
-}
+} @empty { <span>There are no items.</span> }
