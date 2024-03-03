@@ -2,7 +2,10 @@ import { Timestamp } from "@angular/fire/firestore"
 
 export interface User {
   id?: number,
-  username: string
+  username: string,
+  email: string,
+  password: string,
+  liked: string[]
 }
 
 export interface Thought {
