@@ -8,7 +8,7 @@ import { Observable, from } from 'rxjs';
 })
 export class AuthService {
 
-  #isAuthenticated = signal(false)
+  isAuthenticatedSignal = signal(false)
   #uid = signal('')
   #username = signal('')
 
@@ -61,7 +61,7 @@ export class AuthService {
 
   set username(value: string) { this.#username.update(curr => curr = value) }
 
-  get isAuthenticated() { return this.#isAuthenticated() }
+  get isAuthenticated() { return this.isAuthenticatedSignal() }
 
-  set isAuthenticated(value: boolean) { this.#isAuthenticated.update(curr => curr = value) }
+  set isAuthenticated(value: boolean) { this.isAuthenticatedSignal.update(curr => curr = value) }
 }

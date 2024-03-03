@@ -3,7 +3,7 @@
 
   <mat-radio-group [(ngModel)]="selectedRadio" (ngModelChange)="select($event)">
     @for(item of options; track item.id) {
-      <mat-radio-button [checked]="item.option" [value]="item.id" color="primary">
+      <mat-radio-button [disabled]="item.name === 'ADD' && !authService()" [checked]="item.option" [value]="item.id" color="primary">
         <span>{{ item.name}}</span>
       </mat-radio-button>
     }

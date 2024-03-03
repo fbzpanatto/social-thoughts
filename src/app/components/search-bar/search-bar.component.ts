@@ -7,6 +7,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { SeletorService } from '../../services/seletor.service';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserInputService } from '../../services/user-input.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-search-bar',
@@ -31,6 +32,7 @@ export class SearchBarComponent implements OnInit {
 
   #seletorService = inject(SeletorService)
   #userInputService = inject(UserInputService)
+  authService = inject(AuthService).isAuthenticatedSignal
 
   ngOnInit(): void { this.#userInputService.userInput = this.userInput }
 
