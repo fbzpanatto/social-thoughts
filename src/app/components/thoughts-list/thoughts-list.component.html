@@ -15,9 +15,9 @@
       <mat-card-title>{{ thought?.username }}</mat-card-title>
       <mat-card-subtitle> {{ thought?.timestamp?.seconds }} </mat-card-subtitle>
       <span class="spacer"></span>
-      <button class="like-btn" mat-button (click)="changeThoughtLikes(thought)">
-        <mat-icon color="primary">thumb_up</mat-icon>
-        <span>{{ thought.like }}</span>
+      <button [disabled]="!isAuthenticated" class="like-btn" mat-button (click)="changeThoughtLikes(thought)">
+        <mat-icon [ngClass]="isAuthenticated ? 'enabled' : 'disabled'" color="primary">thumb_up</mat-icon>
+        <span [ngClass]="isAuthenticated ? 'enabled' : 'disabled'">{{ thought.like }}</span>
       </button>
       @if(isAuthenticated){
         <button mat-button (click)="removeThought(thought.id)">

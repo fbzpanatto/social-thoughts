@@ -52,11 +52,26 @@
           align-items: center;
   
           mat-icon {
-            color: rgb(34, 255, 181);
+            
+            &.enabled{
+              color: rgb(34, 255, 181);
+            }
+
+            &.disabled {
+              color: rgb(207, 207, 207);
+            }
           }
   
           span {
             color: #444;
+
+            &.enabled{
+              color: #444;
+            }
+
+            &.disabled {
+              color: rgb(207, 207, 207);
+            }
           }
         }
       }
