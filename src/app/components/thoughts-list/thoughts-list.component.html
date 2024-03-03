@@ -19,7 +19,7 @@
         <mat-icon [ngClass]="isAuthenticated ? 'enabled' : 'disabled'" color="primary">thumb_up</mat-icon>
         <span [ngClass]="isAuthenticated ? 'enabled' : 'disabled'">{{ thought.like }}</span>
       </button>
-      @if(isAuthenticated){
+      @if(isAuthenticated && thought.userUid === uid && thought.username === username){
         <button mat-button (click)="removeThought(thought.id)">
           <mat-icon color="accent">delete</mat-icon>
         </button>

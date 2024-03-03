@@ -59,4 +59,12 @@ export class ThoughtsListComponent implements OnInit {
 	get isAuthenticated() {
 		return this.#authService.isAuthenticated
 	}
+
+	get uid(){
+		return this.#authService.uid
+	}
+
+	get username() {
+		return this.#authService.username
+	}
 }

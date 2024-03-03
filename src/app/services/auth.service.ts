@@ -43,7 +43,7 @@ export class AuthService {
     return from(promise)
   }
 
-  logout(){
+  logout() {
     const promise = signOut(this.firebaseAuth).then(() => {
       this.isAuthenticated = false
       this.uid = ''
