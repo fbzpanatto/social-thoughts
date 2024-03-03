@@ -25,8 +25,6 @@ export class AuthService {
         this.uid = response.user.uid
         this.username = response.user.displayName as string
 
-        console.log(this.uid, this.username)
-
       })
     return from(promise)
   }
