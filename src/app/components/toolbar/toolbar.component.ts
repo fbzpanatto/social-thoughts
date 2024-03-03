@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -21,6 +22,8 @@ export class ToolbarComponent implements OnInit {
   minWidth728 = false
   maxWidth728 = true
   condition = signal(true)
+
+  #authService = inject(AuthService)
 
   mobileQuery!: MediaQueryList;
   private readonly _mobileQueryListener: (() => void) | undefined;
@@ -53,4 +56,8 @@ export class ToolbarComponent implements OnInit {
         this.condition.update(curr => curr = !this.minWidth728 && this.maxWidth728)
       });
   }
+
+  get isAuthenticated() {
+		return this.#authService.isAuthenticated
+	}
 }
