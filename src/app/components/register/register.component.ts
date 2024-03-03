@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, effect, inject, signal } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from "@angular/material/input";
@@ -14,14 +14,18 @@ import { AuthService } from '../../services/auth.service';
   standalone: true,
   imports: [CommonModule, MatIconModule, MatButtonModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule],
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RegisterComponent {
 
   #route = inject(ActivatedRoute)
   #authService = inject(AuthService)
+  #router = inject(Router)
 
   isRegister = signal(true)
+
+  errorMessage: string | null = null;
 
   form = this.fb.group({
     username: ['', {
@@ -47,6 +51,16 @@ export class RegisterComponent {
   }
 
   onSubmit() {
-    console.log(this.form.value)
+
+    const { email, password, username } = this.form.getRawValue()
+
+    this.#authService.register({ email: email as string, password: password as string, username: username as string })
+      .subscribe({
+        next: () => this.#router.navigate(['home']),
+        error: (err) => {
+          this.errorMessage = err.code
+          console.log('this.errorMessage', this.errorMessage)
+        }
+      })
   }
 }

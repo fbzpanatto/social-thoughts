@@ -8,20 +8,21 @@ import { FetchDataService } from '../../services/fetch-data.service';
 import { SeletorService } from '../../services/seletor.service';
 import { UserInputService } from '../../services/user-input.service';
 import { Utils } from '../../utils/utils';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
-    selector: 'app-application-wrapper',
-    standalone: true,
-    templateUrl: './application-wrapper.component.html',
-    styleUrls: ['./application-wrapper.component.css', '../../styles/generic.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [
-        CommonModule,
-        ToolbarComponent,
-        SearchBarComponent,
-        ThoughtsListComponent,
-        CreateThoughtComponent
-    ]
+  selector: 'app-application-wrapper',
+  standalone: true,
+  templateUrl: './application-wrapper.component.html',
+  styleUrls: ['./application-wrapper.component.css', '../../styles/generic.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    CommonModule,
+    ToolbarComponent,
+    SearchBarComponent,
+    ThoughtsListComponent,
+    CreateThoughtComponent
+  ]
 })
 export class ApplicationWrapperComponent {
 
@@ -29,6 +30,7 @@ export class ApplicationWrapperComponent {
   seletor: Signal<boolean> = inject(SeletorService).seletor
 
   #utils = inject(Utils)
+  #authService = inject(AuthService)
   #fetchService = inject(FetchDataService)
   #userInputService = inject(UserInputService)
 
@@ -36,7 +38,9 @@ export class ApplicationWrapperComponent {
 
     const time = this.#utils.fireBaseTimeStamp()
     const text = this.#userInputService.userInputValue
+    const uid = this.#authService.uid
+    const username = this.#authService.username
 
-    this.#fetchService.addThought({ textContent: text, username: 'anonymous', timestamp: time, like: 0 })
+    this.#fetchService.addThought({ textContent: text, username: username, timestamp: time, like: 0, userUid: uid })
   }
 }

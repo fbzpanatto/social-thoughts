@@ -9,6 +9,8 @@ import { Observable, from } from 'rxjs';
 export class AuthService {
 
   #isAuthenticated = signal(false)
+  #uid = signal('')
+  #username = signal('')
 
   firebaseAuth = inject(Auth)
 
@@ -16,16 +18,27 @@ export class AuthService {
 
   register(user: User): Observable<void> {
     const promise = createUserWithEmailAndPassword(this.firebaseAuth, user.email, user.password)
-      .then(response => updateProfile(response.user, { displayName: user.username }))
+      .then(async response => {
+
+        this.isAuthenticated = true
+        this.uid = response.user.uid
+
+        await updateProfile(response.user, { displayName: user.username });
+        this.username = response.user.displayName as string;
+      })
 
     return from(promise)
   }
 
-  get isAuthenticated(): boolean {
-    return this.#isAuthenticated()
-  }
+  get uid() { return this.#uid() }
 
-  set isAuthenticated(value: boolean) {
-    this.#isAuthenticated.update(curr => curr = value)
-  }
+  set uid(value: string) { this.#uid.update(curr => curr = value) }
+
+  get username() { return this.#username() }
+
+  set username(value: string) { this.#username.update(curr => curr = value) }
+
+  get isAuthenticated() { return this.#isAuthenticated() }
+
+  set isAuthenticated(value: boolean) { this.#isAuthenticated.update(curr => curr = value) }
 }

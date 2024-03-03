@@ -12,6 +12,7 @@ export interface Thought {
   id?: string,
   textContent: string,
   username: string,
+  userUid: string,
   timestamp: Timestamp,
   like: number
 }
