@@ -17,24 +17,18 @@ export class FetchDataService {
   
   getThoughts(search: string | null) {
 
-    const promise = collectionData(this.thoughtsCollection, { idField: 'id' })
+    // return collectionData(this.thoughtsCollection, { idField: 'id' }) as Observable<Thought[]>
+
+    return collectionData(this.thoughtsCollection, { idField: 'id' })
     .pipe(
       switchMap((array) => {
         const data = array as Thought[]
 
-        const char = '@'
-
-        if(search?.charAt(0) === char) {
-          return of(data.filter(el => el.username.toLowerCase().includes(search.slice(1)?.toLowerCase() ?? '')))
-        }
-
+        if(search?.charAt(0) === '@') return of(data.filter(el => el.username.toLowerCase().includes(search.slice(1)?.toLowerCase() ?? '')))
         return of(data.filter(el => el.textContent.toLowerCase().includes(search?.toLowerCase() ?? '')))
+      
       })
-    )
-    
-    // return collectionData(this.thoughtsCollection, { idField: 'id' }) as Observable<Thought[]>
-
-    return promise as Observable<Thought[]>
+    ) as Observable<Thought[]>
   }
 
   addThought(thought: Thought): Observable<String> {
