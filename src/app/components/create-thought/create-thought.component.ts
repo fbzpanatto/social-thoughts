@@ -36,12 +36,7 @@ export class CreateThoughtComponent {
     this.#fetchService.addThought({ textContent: text ?? '', username: username, timestamp: time, like: 0, userUid: uid, likedBy: [] })
   }
 
-  get isAuth() {
-    return this.#authService.isAuthenticatedSignal
-  }
+  get isAuth() { return this.#authService.isAuthenticatedSignal }
 
-  get hasText() {
-    console.log('this.#userInputService.userInputValue', !!this.#userInputService.userInputValue)
-    return !!this.#userInputService.userInputValue
-  }
+  get hasText() { return !!this.#userInputService.userInputValue }
 }
