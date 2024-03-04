@@ -35,7 +35,7 @@ export class ThoughtsListComponent implements OnInit {
 		this.thoughts$ = this.#fetchService.getThoughts()
 
 		this.thoughts$ = combineLatest([
-			toObservable(this.#userInputService.userInput$, { injector: this.#injector }),
+			toObservable(this.#userInputService.userInputSignal, { injector: this.#injector }),
 			this.thoughts$
 		])
 			.pipe(

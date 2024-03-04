@@ -11,7 +11,7 @@ export class UserInputService {
   #userInput = new FormControl<string | null>(null)
   #injector = inject(EnvironmentInjector)
 
-  get userInput$() {
+  get userInputSignal() {
     return toSignal(this.#userInput.valueChanges.pipe(startWith(null), debounceTime(400), distinctUntilChanged()), { injector: this.#injector })
   }
 
