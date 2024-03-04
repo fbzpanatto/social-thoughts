@@ -1,11 +1,11 @@
 <mat-toolbar>
   <textarea [formControl]="userInput" type="text" placeholder="write your thought..." rows="2"></textarea>
 
-  <mat-radio-group [(ngModel)]="selectedRadio" (ngModelChange)="select($event)">
+  <!-- <mat-radio-group [(ngModel)]="selectedRadio" (ngModelChange)="select($event)">
     @for(item of options; track item.id) {
-      <!-- <mat-radio-button [disabled]="item.name === 'ADD' && !authService()" [checked]="item.option" [value]="item.id" color="primary">
+      <mat-radio-button [disabled]="item.name === 'ADD' && !authService()" [checked]="item.option" [value]="item.id" color="primary">
         <span>{{ item.name}}</span>
-      </mat-radio-button> -->
+      </mat-radio-button>
     }
-  </mat-radio-group>
+  </mat-radio-group> -->
 </mat-toolbar>

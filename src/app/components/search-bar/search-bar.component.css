@@ -5,11 +5,14 @@
 
   mat-toolbar {
 
+    height: 12vh;
     position: relative;
     background: linear-gradient(to right bottom,
         #EB054E 0%,
         #DB0A84 50%,
         #A212D5 100%);
+
+    padding: 0 3vmin;
 
     textarea {
       width: 100%;
@@ -17,9 +20,10 @@
       border-radius: 4px;
       outline: none;
       padding: 4px 16px;
-      min-height: 36px;
-      max-height: 100px;
-      resize: vertical;
+      height: 10vh;
+      /* min-height: 36px;
+      max-height: 100px; */
+      resize: none;
       color: #333;
       font-style: italic;
       letter-spacing: .05rem;
@@ -44,5 +48,15 @@
 @media (min-width: 728px) {
   :host {
     top: 12vh;
+  }
+}
+
+@media (max-width: 728px) {
+  :host {
+
+    mat-toolbar {
+      padding: 0 6vmin;
+    }
+
   }
 }

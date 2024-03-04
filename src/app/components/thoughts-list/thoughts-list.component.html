@@ -4,8 +4,9 @@
   <mat-card class="card">
 
     <mat-card-content>
-      <textarea #txtArea (blur)="changeThoughtContent(thought, txtArea.value)" type="text"
-        [value]="thought?.textContent"></textarea>
+      <textarea [disabled]="{ uid: uid, thought: thought } | appCheckOwner" #txtArea
+        (blur)="changeThoughtContent(thought, txtArea.value)" type="text" [value]="thought?.textContent">
+      </textarea>
     </mat-card-content>
 
     <span class="spacer"></span>
@@ -16,7 +17,9 @@
       <mat-card-subtitle> {{ thought?.timestamp?.seconds | appTimestamp }} </mat-card-subtitle>
       <span class="spacer"></span>
       <button [disabled]="!isAuthenticated" class="like-btn" mat-button (click)="changeThoughtLikes(thought)">
-        <mat-icon [ngClass]="isAuthenticated ? 'enabled' : 'disabled'" color="primary">{{ { thought, uid}  | appCheckIcon }}</mat-icon>
+        <mat-icon [ngClass]="isAuthenticated ? 'enabled' : 'disabled'" color="primary">
+          {{ { thought, uid} | appCheckIcon }}
+        </mat-icon>
         <span [ngClass]="isAuthenticated ? 'enabled' : 'disabled'">{{ thought.like }}</span>
       </button>
       @if(isAuthenticated && thought.userUid === uid && thought.username === username){

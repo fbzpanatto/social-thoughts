@@ -12,14 +12,15 @@ import { UserInputService } from '../../services/user-input.service';
 import { AuthService } from '../../services/auth.service';
 import { CheckIconPipe } from '../pipes/check-icon.pipe';
 import { TimestampPipe } from '../pipes/timestamp.pipe';
+import { CheckOwnerPipe } from "../pipes/check-owner.pipe";
 
 @Component({
-	selector: 'app-thoughts-list',
-	standalone: true,
-	templateUrl: './thoughts-list.component.html',
-	styleUrls: ['./thoughts-list.component.css', '../../styles/generic.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [CommonModule, MatCardModule, MatButtonModule, MatDividerModule, MatIconModule, ReactiveFormsModule, CheckIconPipe, TimestampPipe]
+    selector: 'app-thoughts-list',
+    standalone: true,
+    templateUrl: './thoughts-list.component.html',
+    styleUrls: ['./thoughts-list.component.css', '../../styles/generic.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [CommonModule, MatCardModule, MatButtonModule, MatDividerModule, MatIconModule, ReactiveFormsModule, CheckIconPipe, TimestampPipe, CheckOwnerPipe]
 })
 export class ThoughtsListComponent implements OnInit {
 
