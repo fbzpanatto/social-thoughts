@@ -15,11 +15,7 @@ export class UserInputService {
     return toSignal(this.#userInput.valueChanges.pipe(startWith(null), debounceTime(400), distinctUntilChanged()), { injector: this.#injector })
   }
 
-  get userInputValue() {
-    return this.#userInput.value
-  }
+  get userInputValue() { return this.#userInput.value }
 
-  set userInput(formControl: FormControl) {
-    this.#userInput = formControl
-  }
+  set userInput(formControl: FormControl) { this.#userInput = formControl }
 }
