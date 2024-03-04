@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { FetchDataService } from '../../services/fetch-data.service';
-import { Observable, combineLatest, of, switchMap } from 'rxjs';
+import { Observable, combineLatest, switchMap } from 'rxjs';
 import { Thought } from '../../interfaces/interfaces';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -31,8 +31,6 @@ export class ThoughtsListComponent implements OnInit {
 	thoughts$: Observable<Thought[]> = new Observable()
 
 	ngOnInit(): void {
-
-		// this.thoughts$ = this.#fetchService.getThoughts()
 
 		this.thoughts$ = combineLatest([
 			this.#userInputService.userInput$
