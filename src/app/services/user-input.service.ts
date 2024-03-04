@@ -7,8 +7,8 @@ import { debounceTime, distinctUntilChanged, startWith, tap } from 'rxjs';
 })
 export class UserInputService {
 
-  #userInput = new FormControl('')
-  #userInputSignal = signal<string | null>('')
+  #userInput = new FormControl<string | null>(null)
+  #userInputSignal = signal<string | null>(null)
 
   get userInput$() {
     return this.#userInput.valueChanges

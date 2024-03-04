@@ -27,7 +27,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class SearchBarComponent implements OnInit {
 
-  userInput = new FormControl('')
+  userInput = new FormControl<string | null>(null)
   selectedRadio: number | null = 1;
 
   #seletorService = inject(SeletorService)
