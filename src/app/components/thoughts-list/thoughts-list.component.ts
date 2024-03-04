@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EnvironmentInjector, OnInit, inject } from '@angular/core';
 import { FetchDataService } from '../../services/fetch-data.service';
 import { Observable, combineLatest, of, switchMap } from 'rxjs';
 import { Thought } from '../../interfaces/interfaces';
@@ -11,6 +11,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { UserInputService } from '../../services/user-input.service';
 import { AuthService } from '../../services/auth.service';
 import { CheckIconPipe } from '../pipes/check-icon.pipe';
+import { toObservable } from '@angular/core/rxjs-interop'
 
 @Component({
 	selector: 'app-thoughts-list',
@@ -25,15 +26,17 @@ export class ThoughtsListComponent implements OnInit {
 	#fetchService = inject(FetchDataService)
 	#userInputService = inject(UserInputService)
 	#authService = inject(AuthService)
+	#injector = inject(EnvironmentInjector)
 
 	thoughts$: Observable<Thought[]> = new Observable()
+
 
 	ngOnInit(): void {
 
 		this.thoughts$ = this.#fetchService.getThoughts()
 
 		this.thoughts$ = combineLatest([
-			this.#userInputService.userInput$,
+			toObservable(this.#userInputService.userInput$, { injector: this.#injector }),
 			this.thoughts$
 		])
 			.pipe(
@@ -47,11 +50,6 @@ export class ThoughtsListComponent implements OnInit {
 		if (txtArea.trim() != thought.textContent.trim()) {
 			this.#fetchService.updateThought(thought.id as string, { ...thought, textContent: txtArea })
 		}
-	}
-
-	returnIcon() {
-		console.log('passando aqui')
-		return ''
 	}
 
 	changeThoughtLikes(thought: Thought) {
@@ -69,19 +67,11 @@ export class ThoughtsListComponent implements OnInit {
 		this.#fetchService.updateThought(thought.id as string, { ...thought })
 	}
 
-	removeThought(thoughtId: string | undefined) {
-		this.#fetchService.removeThought(thoughtId as string)
-	}
+	removeThought(thoughtId: string | undefined) { this.#fetchService.removeThought(thoughtId as string) }
 
-	get isAuthenticated() {
-		return this.#authService.isAuthenticated
-	}
+	get isAuthenticated() { return this.#authService.isAuthenticated }
 
-	get uid() {
-		return this.#authService.uid
-	}
+	get uid() { return this.#authService.uid }
 
-	get username() {
-		return this.#authService.username
-	}
+	get username() { return this.#authService.username }
 }

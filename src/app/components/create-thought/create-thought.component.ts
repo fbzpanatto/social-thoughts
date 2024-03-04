@@ -33,10 +33,15 @@ export class CreateThoughtComponent {
     const uid = this.#authService.uid
     const username = this.#authService.username
 
-    this.#fetchService.addThought({ textContent: text, username: username, timestamp: time, like: 0, userUid: uid, likedBy: [] })
+    this.#fetchService.addThought({ textContent: text ?? '', username: username, timestamp: time, like: 0, userUid: uid, likedBy: [] })
   }
 
   get isAuth() {
     return this.#authService.isAuthenticatedSignal
+  }
+
+  get hasText() {
+    console.log('this.#userInputService.userInputValue', !!this.#userInputService.userInputValue)
+    return !!this.#userInputService.userInputValue
   }
 }
