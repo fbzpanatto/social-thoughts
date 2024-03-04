@@ -1,6 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { User, Thought } from '../interfaces/interfaces';
-import { Firestore, addDoc, collection, collectionData, deleteDoc, doc, setDoc } from '@angular/fire/firestore';
+import { Firestore, QueryOrderByConstraint, addDoc, collectionData, deleteDoc, doc, setDoc } from '@angular/fire/firestore';
+import { collection, query, where, getDocs } from "firebase/firestore";
 import { Observable, from } from 'rxjs';
 
 @Injectable({
@@ -13,8 +14,11 @@ export class FetchDataService {
   getUsers() {
     return collectionData(this.usersCollection, { idField: 'id' }) as Observable<User[]>
   }
-
+  
   getThoughts() {
+
+    // const q = query(this.thoughtsCollection, where("username", "==", "fbzpanatto"));
+
     return collectionData(this.thoughtsCollection, { idField: 'id' }) as Observable<Thought[]>
   }
 
