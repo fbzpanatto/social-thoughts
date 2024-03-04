@@ -32,15 +32,14 @@ export class ThoughtsListComponent implements OnInit {
 
 	ngOnInit(): void {
 
-		this.thoughts$ = this.#fetchService.getThoughts()
+		// this.thoughts$ = this.#fetchService.getThoughts()
 
 		this.thoughts$ = combineLatest([
-			this.#userInputService.userInput$,
-			this.thoughts$
+			this.#userInputService.userInput$
 		])
 			.pipe(
-				switchMap(([search, thoughts]) => {
-					return of(thoughts.filter(el => el.textContent.includes(search ?? '')))
+				switchMap(([search]) => {
+					return this.#fetchService.getThoughts(search)
 				})
 			)
 	}

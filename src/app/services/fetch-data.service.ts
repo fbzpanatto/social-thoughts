@@ -1,9 +1,8 @@
 import { Injectable, inject } from '@angular/core';
 import { User, Thought } from '../interfaces/interfaces';
 import { Firestore, QueryOrderByConstraint, addDoc, collectionData, deleteDoc, doc, setDoc } from '@angular/fire/firestore';
-import { collection, query, where, getDocs } from "firebase/firestore";
-import { Observable, from } from 'rxjs';
-import { UserInputService } from './user-input.service';
+import { collection, query, where, getDocs, startAt } from "firebase/firestore";
+import { Observable, from, of, switchMap, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -16,11 +15,26 @@ export class FetchDataService {
     return collectionData(this.usersCollection, { idField: 'id' }) as Observable<User[]>
   }
   
-  getThoughts() {
+  getThoughts(search: string | null) {
 
-    // const q = query(this.thoughtsCollection, where("username", "==", "fbzpanatto"));
+    const promise = collectionData(this.thoughtsCollection, { idField: 'id' })
+    .pipe(
+      switchMap((array) => {
+        const data = array as Thought[]
 
-    return collectionData(this.thoughtsCollection, { idField: 'id' }) as Observable<Thought[]>
+        const char = '@'
+
+        if(search?.charAt(0) === char) {
+          return of(data.filter(el => el.username.toLowerCase().includes(search.slice(1)?.toLowerCase() ?? '')))
+        }
+
+        return of(data.filter(el => el.textContent.toLowerCase().includes(search?.toLowerCase() ?? '')))
+      })
+    )
+    
+    // return collectionData(this.thoughtsCollection, { idField: 'id' }) as Observable<Thought[]>
+
+    return promise as Observable<Thought[]>
   }
 
   addThought(thought: Thought): Observable<String> {
