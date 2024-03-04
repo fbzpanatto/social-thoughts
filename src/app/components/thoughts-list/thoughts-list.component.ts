@@ -11,6 +11,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { UserInputService } from '../../services/user-input.service';
 import { AuthService } from '../../services/auth.service';
 import { CheckIconPipe } from '../pipes/check-icon.pipe';
+import { TimestampPipe } from '../pipes/timestamp.pipe';
 
 @Component({
 	selector: 'app-thoughts-list',
@@ -18,7 +19,7 @@ import { CheckIconPipe } from '../pipes/check-icon.pipe';
 	templateUrl: './thoughts-list.component.html',
 	styleUrls: ['./thoughts-list.component.css', '../../styles/generic.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [CommonModule, MatCardModule, MatButtonModule, MatDividerModule, MatIconModule, ReactiveFormsModule, CheckIconPipe]
+	imports: [CommonModule, MatCardModule, MatButtonModule, MatDividerModule, MatIconModule, ReactiveFormsModule, CheckIconPipe, TimestampPipe]
 })
 export class ThoughtsListComponent implements OnInit {
 
