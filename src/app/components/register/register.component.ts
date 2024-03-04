@@ -68,18 +68,12 @@ export class RegisterComponent {
       this.#authService.login(email as string, password as string)
         .subscribe({
           next: () => this.#router.navigate(['home']),
-          error: (err) => {
-            this.errorMessage = err.code
-          }
+          error: (err) => { this.errorMessage = err.code }
         })
     }
   }
 
-  get errorMessage() {
-    return this.#errorMessage
-  }
+  get errorMessage() { return this.#errorMessage }
 
-  set errorMessage(value: string | null) {
-    this.#errorMessage = value
-  }
+  set errorMessage(value: string | null) { this.#errorMessage = value }
 }
