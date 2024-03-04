@@ -15,12 +15,12 @@ import { TimestampPipe } from '../pipes/timestamp.pipe';
 import { CheckOwnerPipe } from "../pipes/check-owner.pipe";
 
 @Component({
-    selector: 'app-thoughts-list',
-    standalone: true,
-    templateUrl: './thoughts-list.component.html',
-    styleUrls: ['./thoughts-list.component.css', '../../styles/generic.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [CommonModule, MatCardModule, MatButtonModule, MatDividerModule, MatIconModule, ReactiveFormsModule, CheckIconPipe, TimestampPipe, CheckOwnerPipe]
+	selector: 'app-thoughts-list',
+	standalone: true,
+	templateUrl: './thoughts-list.component.html',
+	styleUrls: ['./thoughts-list.component.css', '../../styles/generic.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	imports: [CommonModule, MatCardModule, MatButtonModule, MatDividerModule, MatIconModule, ReactiveFormsModule, CheckIconPipe, TimestampPipe, CheckOwnerPipe]
 })
 export class ThoughtsListComponent implements OnInit {
 
@@ -34,12 +34,7 @@ export class ThoughtsListComponent implements OnInit {
 
 		this.thoughts$ = combineLatest([
 			this.#userInputService.userInput$
-		])
-			.pipe(
-				switchMap(([search]) => {
-					return this.#fetchService.getThoughts(search)
-				})
-			)
+		]).pipe(switchMap(([search]) => { return this.#fetchService.getThoughts(search) }))
 	}
 
 	changeThoughtContent(thought: Thought, txtArea: string) {
