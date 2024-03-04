@@ -14,46 +14,36 @@ export class FetchDataService {
   getUsers() {
     return collectionData(this.usersCollection, { idField: 'id' }) as Observable<User[]>
   }
-  
+
   getThoughts(search: string | null) {
 
     // return collectionData(this.thoughtsCollection, { idField: 'id' }) as Observable<Thought[]>
 
     return collectionData(this.thoughtsCollection, { idField: 'id' })
-    .pipe(
-      switchMap((array) => {
-        const data = array as Thought[]
+      .pipe(
+        switchMap((array) => {
+          const data = array as Thought[]
 
-        if(search?.charAt(0) === '@') return of(data.filter(el => el.username.toLowerCase().includes(search.slice(1)?.toLowerCase() ?? '')))
-        return of(data.filter(el => el.textContent.toLowerCase().includes(search?.toLowerCase() ?? '')))
-      
-      })
-    ) as Observable<Thought[]>
+          if (search?.charAt(0) === '@') return of(data.filter(el => el.username.toLowerCase().includes(search.slice(1)?.toLowerCase() ?? '')))
+          return of(data.filter(el => el.textContent.toLowerCase().includes(search?.toLowerCase() ?? '')))
+
+        })
+      ) as Observable<Thought[]>
   }
 
   addThought(thought: Thought): Observable<String> {
-    const promise = addDoc(this.thoughtsCollection, thought).then(response => response.id)
-    return from(promise)
+    return from(addDoc(this.thoughtsCollection, thought).then(response => response.id))
   }
 
   updateThought(thoughtId: string, dataToUpdate: {}): Observable<void> {
-
-    const docRef = doc(this.firestore, 'thoughts/' + thoughtId)
-    const promise = setDoc(docRef, dataToUpdate)
-    return from(promise)
+    return from(setDoc(doc(this.firestore, 'thoughts/' + thoughtId), dataToUpdate))
   }
 
   removeThought(thoughtId: string) {
-    const docRef = doc(this.firestore, 'thoughts/' + thoughtId)
-    const promise = deleteDoc(docRef)
-    return from(promise)
+    return from(deleteDoc(doc(this.firestore, 'thoughts/' + thoughtId)))
   }
 
-  private get usersCollection() {
-    return collection(this.firestore, 'users')
-  }
+  private get usersCollection() { return collection(this.firestore, 'users') }
 
-  private get thoughtsCollection() {
-    return collection(this.firestore, 'thoughts')
-  }
+  private get thoughtsCollection() { return collection(this.firestore, 'thoughts') }
 }
