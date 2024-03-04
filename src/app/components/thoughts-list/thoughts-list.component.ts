@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, EnvironmentInjector, OnInit, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EnvironmentInjector, OnInit, effect, inject } from '@angular/core';
 import { FetchDataService } from '../../services/fetch-data.service';
 import { Observable, combineLatest, of, switchMap } from 'rxjs';
 import { Thought } from '../../interfaces/interfaces';
@@ -35,7 +35,7 @@ export class ThoughtsListComponent implements OnInit {
 		this.thoughts$ = this.#fetchService.getThoughts()
 
 		this.thoughts$ = combineLatest([
-			toObservable(this.#userInputService.userInputSignal, { injector: this.#injector }),
+			this.#userInputService.userInput$,
 			this.thoughts$
 		])
 			.pipe(
