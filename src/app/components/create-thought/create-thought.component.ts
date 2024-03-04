@@ -13,7 +13,7 @@ import { Utils } from '../../utils/utils';
   imports: [CommonModule, MatButtonModule, MatIconModule],
   templateUrl: './create-thought.component.html',
   styleUrls: ['./create-thought.component.css', '../../styles/generic.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class CreateThoughtComponent {
 
@@ -21,6 +21,14 @@ export class CreateThoughtComponent {
   #authService = inject(AuthService)
   #fetchService = inject(FetchDataService)
   #userInputService = inject(UserInputService)
+  #input: string | null = null
+
+  constructor() {
+    effect(() => {
+      this.input = this.#userInputService.auxVar()
+      console.log('this.hasText', this.hasText)
+    })
+  }
 
   addThought() {
 
@@ -29,10 +37,13 @@ export class CreateThoughtComponent {
     const uid = this.#authService.uid
     const username = this.#authService.username
 
-    this.#fetchService.addThought({ textContent: text ?? '', username: username, timestamp: time, like: 0, userUid: uid, likedBy: [] })
+    console.log('this.input', this.input)
+
+    // this.#fetchService.addThought({ textContent: text ?? '', username: username, timestamp: time, like: 0, userUid: uid, likedBy: [] })
   }
 
+  get input() { return this.#input }
+  set input(value) { this.#input = value }
   get isAuth() { return this.#authService.isAuthenticatedSignal }
-
-  get hasText() { return !!this.#userInputService.userInputValue }
+  get hasText() { return !!this.input?.length }
 }

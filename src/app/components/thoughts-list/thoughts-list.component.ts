@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, EnvironmentInjector, OnInit, effect, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { FetchDataService } from '../../services/fetch-data.service';
 import { Observable, combineLatest, of, switchMap } from 'rxjs';
 import { Thought } from '../../interfaces/interfaces';
@@ -11,7 +11,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { UserInputService } from '../../services/user-input.service';
 import { AuthService } from '../../services/auth.service';
 import { CheckIconPipe } from '../pipes/check-icon.pipe';
-import { toObservable } from '@angular/core/rxjs-interop'
 
 @Component({
 	selector: 'app-thoughts-list',
@@ -26,7 +25,6 @@ export class ThoughtsListComponent implements OnInit {
 	#fetchService = inject(FetchDataService)
 	#userInputService = inject(UserInputService)
 	#authService = inject(AuthService)
-	#injector = inject(EnvironmentInjector)
 
 	thoughts$: Observable<Thought[]> = new Observable()
 
