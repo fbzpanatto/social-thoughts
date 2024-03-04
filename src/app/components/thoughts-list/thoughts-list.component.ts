@@ -30,7 +30,6 @@ export class ThoughtsListComponent implements OnInit {
 
 	thoughts$: Observable<Thought[]> = new Observable()
 
-
 	ngOnInit(): void {
 
 		this.thoughts$ = this.#fetchService.getThoughts()

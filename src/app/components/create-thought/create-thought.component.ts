@@ -10,11 +10,7 @@ import { Utils } from '../../utils/utils';
 @Component({
   selector: 'app-create-thought',
   standalone: true,
-  imports: [
-    CommonModule,
-    MatButtonModule,
-    MatIconModule
-  ],
+  imports: [CommonModule, MatButtonModule, MatIconModule],
   templateUrl: './create-thought.component.html',
   styleUrls: ['./create-thought.component.css', '../../styles/generic.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
