@@ -20,9 +20,7 @@ export class UserInputService {
       )
   }
 
-  get userInputSignal() {
-    return this.#userInputSignal.asReadonly()
-  }
+  get userInputSignal() { return this.#userInputSignal.asReadonly() }
 
   get userInputValue() { return this.#userInput.value }
 
