@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, effect, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, inject, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { AuthService } from '../../services/auth.service';
@@ -13,7 +13,7 @@ import { Utils } from '../../utils/utils';
   imports: [CommonModule, MatButtonModule, MatIconModule],
   templateUrl: './create-thought.component.html',
   styleUrls: ['./create-thought.component.css', '../../styles/generic.scss'],
-  changeDetection: ChangeDetectionStrategy.Default,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateThoughtComponent {
 
@@ -21,13 +21,17 @@ export class CreateThoughtComponent {
   #authService = inject(AuthService)
   #fetchService = inject(FetchDataService)
   #userInputService = inject(UserInputService)
-  #input: string | null = null
+
+  #hasText = signal<boolean>(false)
+  #isAuth = signal<boolean>(false)
+  #condition = signal<boolean>(false)
 
   constructor() {
     effect(() => {
-      this.input = this.#userInputService.auxVar()
-      console.log('this.hasText', this.hasText)
-    })
+      this.#hasText.update(curr => curr = !!this.#userInputService.auxVar()?.length)
+      this.#isAuth.update(curr => curr = this.#authService.isAuthenticated)
+      this.#condition.update(curr => curr = this.isAuth() && this.hasText())
+    }, { allowSignalWrites: true })
   }
 
   addThought() {
@@ -37,13 +41,10 @@ export class CreateThoughtComponent {
     const uid = this.#authService.uid
     const username = this.#authService.username
 
-    console.log('this.input', this.input)
-
-    // this.#fetchService.addThought({ textContent: text ?? '', username: username, timestamp: time, like: 0, userUid: uid, likedBy: [] })
+    this.#fetchService.addThought({ textContent: text ?? '', username: username, timestamp: time, like: 0, userUid: uid, likedBy: [] })
   }
 
-  get input() { return this.#input }
-  set input(value) { this.#input = value }
-  get isAuth() { return this.#authService.isAuthenticatedSignal }
-  get hasText() { return !!this.input?.length }
+  get condition() { return this.#condition.asReadonly() }
+  get isAuth() { return this.#isAuth.asReadonly() }
+  get hasText() { return this.#hasText.asReadonly() }
 }
