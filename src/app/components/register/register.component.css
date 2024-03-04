@@ -58,6 +58,7 @@
     }
 
     form {
+      position: relative;
       display: flex;
       flex-direction: column;
       padding: 0 3vw;
@@ -80,6 +81,32 @@
           color: #575757d0;
         }
 
+      }
+
+      .invalid-credentials {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        width: calc(100% - 6vw);
+        font-size: .8vw;
+        line-height: 1.5vw;
+        letter-spacing: .100rem;
+        bottom: 7vmin;
+        color: #fff;
+        gap: 2vmin;
+
+        span {
+          &:nth-of-type(1) {
+            flex: 1;
+            white-space: nowrap;
+          }
+          &:nth-of-type(2) {
+            flex: 2;
+            display: inline-block;
+            height: .1vmin;
+            background-color: #fff;
+          }
+        }
       }
     }
 

@@ -10,12 +10,19 @@
 
   <p>Fulfill the fields below with your credentials.</p>
 
-  <form [formGroup]="form" (submit)="onSubmit()">
+  <form [formGroup]="form" (submit)="onSubmit()" autocomplete="off">
 
     @if(isRegister()){ <input matInput formControlName="username" type="text" placeholder="username"> }
 
-    <input matInput formControlName="email" type="email" placeholder="email">
-    <input matInput formControlName="password" type="password" placeholder="password">
+    <input autocomplete="off" matInput formControlName="email" type="email" placeholder="email">
+    <input autocomplete="off" matInput formControlName="password" type="password" placeholder="password">
+
+    @if(errorMessage) {
+      <div class="invalid-credentials">
+        <span>> Invalid credentials</span>
+        <span></span>
+      </div>
+    }
 
     @if(isRegister()) { <button type="submit" mat-flat-button [disabled]="!form.valid">Register</button>}
     @else { <button type="submit" mat-flat-button [disabled]="!form.controls.email.valid && !form.controls.password.valid">Login</button> }

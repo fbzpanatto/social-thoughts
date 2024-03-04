@@ -25,7 +25,7 @@ export class RegisterComponent {
 
   isRegister = signal(true)
 
-  errorMessage: string | null = null;
+  #errorMessage: string | null = null;
 
   form = this.fb.group({
     username: ['', {
@@ -70,9 +70,16 @@ export class RegisterComponent {
           next: () => this.#router.navigate(['home']),
           error: (err) => {
             this.errorMessage = err.code
-            console.log('this.errorMessage', this.errorMessage)
           }
         })
     }
+  }
+
+  get errorMessage() {
+    return this.#errorMessage
+  }
+
+  set errorMessage(value: string | null) {
+    this.#errorMessage = value
   }
 }
