@@ -8,16 +8,20 @@ import { debounceTime, distinctUntilChanged, startWith, tap } from 'rxjs';
 export class UserInputService {
 
   #userInput = new FormControl('')
-  auxVar = signal<string | null>('')
+  #userInputSignal = signal<string | null>('')
 
   get userInput$() {
     return this.#userInput.valueChanges
       .pipe(
-        tap(values => { this.auxVar.update(curr => curr = values) }),
+        tap(values => { this.#userInputSignal.update(curr => curr = values) }),
         startWith(null),
         debounceTime(400),
         distinctUntilChanged()
       )
+  }
+
+  get userInputSignal() {
+    return this.#userInputSignal.asReadonly()
   }
 
   get userInputValue() { return this.#userInput.value }

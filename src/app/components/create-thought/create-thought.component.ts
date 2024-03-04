@@ -28,7 +28,7 @@ export class CreateThoughtComponent {
 
   constructor() {
     effect(() => {
-      this.#hasText.update(curr => curr = !!this.#userInputService.auxVar()?.length)
+      this.#hasText.update(curr => curr = !!this.#userInputService.userInputSignal()?.length)
       this.#isAuth.update(curr => curr = this.#authService.isAuthenticated)
       this.#condition.update(curr => curr = this.isAuth() && this.hasText())
     }, { allowSignalWrites: true })
