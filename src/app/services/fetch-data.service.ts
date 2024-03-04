@@ -3,6 +3,7 @@ import { User, Thought } from '../interfaces/interfaces';
 import { Firestore, QueryOrderByConstraint, addDoc, collectionData, deleteDoc, doc, setDoc } from '@angular/fire/firestore';
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { Observable, from } from 'rxjs';
+import { UserInputService } from './user-input.service';
 
 @Injectable({
   providedIn: 'root'

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -34,11 +34,34 @@ export class SearchBarComponent implements OnInit {
   #userInputService = inject(UserInputService)
   authService = inject(AuthService).isAuthenticatedSignal
 
-  ngOnInit(): void { this.#userInputService.userInput = this.userInput }
+  #showOptions = signal(false)
+
+  ngOnInit(): void {
+
+    // const slash = '/'
+
+    this.#userInputService.userInput = this.userInput
+
+    // this.userInput.valueChanges.subscribe(values => {
+
+    //   const char = values?.charAt(0)
+
+    //   if (char === slash && values?.length === 1) {
+    //     this.#showOptions.update(curr => curr = true)
+    //     return
+    //   }
+    //   this.#showOptions.update(curr => curr = false)
+    //   return
+    // })
+  }
 
   select($event: number) {
     const el = this.options.find(option => option.id === $event)
     this.#seletorService.setSeletor(el?.option as boolean)
+  }
+
+  get showOptions() {
+    return this.#showOptions
   }
 
   get options() {

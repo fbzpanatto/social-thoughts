@@ -4,7 +4,7 @@
   z-index: 1;
 
   mat-toolbar {
-
+    position: relative;
     height: 12vh;
     position: relative;
     background: linear-gradient(to right bottom,
@@ -21,13 +21,38 @@
       outline: none;
       padding: 4px 16px;
       height: 10vh;
-      /* min-height: 36px;
-      max-height: 100px; */
       resize: none;
       color: #333;
       font-style: italic;
       letter-spacing: .05rem;
     }
+
+    /* .options {
+      position: absolute;
+      top: 4vh;
+      border: 1px solid #ececec;
+      background-color: #fff;
+      border-radius: 4px;
+
+      ul {
+        list-style: none;
+
+        padding-inline-start: 2vmin;
+        padding-inline-end: 2vmin;
+
+        li {
+
+          letter-spacing: .100rem;
+          font-weight: lighter;
+          font-size: 2vmin;
+
+          &:hover {
+            cursor: pointer;
+            font-weight: normal;
+          }
+        }
+      }
+    } */
 
     mat-radio-group {
 
