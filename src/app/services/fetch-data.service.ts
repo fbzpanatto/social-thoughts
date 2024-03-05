@@ -36,9 +36,7 @@ export class FetchDataService {
 
             let condition = splitedTerms?.every(word => textContentSplited.includes(word))
 
-            if (!condition) {
-              return !!textContentSplited.filter(el => { return el.search(`${search}`) !== -1 ? true : false })?.length
-            }
+            if (!condition) { return !!textContentSplited.filter(el => { return el.search(`${search}`) !== -1 ? true : false })?.length }
 
             return condition
 
