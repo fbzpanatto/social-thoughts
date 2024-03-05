@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { User, Thought } from '../interfaces/interfaces';
-import { Firestore, QueryOrderByConstraint, addDoc, collectionData, deleteDoc, doc, setDoc } from '@angular/fire/firestore';
+import { Firestore, QueryOrderByConstraint, addDoc, collectionData, deleteDoc, doc, endAt, limit, orderBy, setDoc, startAfter } from '@angular/fire/firestore';
 import { collection, query, where, getDocs, startAt } from "firebase/firestore";
 import { Observable, from, of, switchMap, tap } from 'rxjs';
 
@@ -17,16 +17,25 @@ export class FetchDataService {
 
   getThoughts(search: string | null) {
 
-    // return collectionData(this.thoughtsCollection, { idField: 'id' }) as Observable<Thought[]>
+    const q = query(this.thoughtsCollection, orderBy('timestamp', 'desc'))
 
-    return collectionData(this.thoughtsCollection, { idField: 'id' })
+    return collectionData(q, { idField: 'id' })
       .pipe(
         switchMap((array) => {
           const data = array as Thought[]
 
           if (search?.charAt(0) === '@') return of(data.filter(el => el.username.toLowerCase().includes(search.slice(1)?.toLowerCase() ?? '')))
-          return of(data.filter(el => el.textContent.toLowerCase().includes(search?.toLowerCase() ?? '')))
 
+          let splitedTerms = search?.split ? search.split(' ') : ['']
+          splitedTerms = splitedTerms.map(el => el.toLowerCase())
+
+          return of(data.filter(el => {
+
+            let textContentSplited = el.textContent.replace(/,\s*|\n/g, ' ').trim().split(/\s+/).filter(word => word).map(el => el.toLowerCase())
+
+            return splitedTerms.every(word => textContentSplited.includes(word))
+
+          }))
         })
       ) as Observable<Thought[]>
   }
