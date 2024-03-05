@@ -3,6 +3,7 @@ import { User, Thought } from '../interfaces/interfaces';
 import { Firestore, addDoc, collectionData, deleteDoc, doc, orderBy, setDoc } from '@angular/fire/firestore';
 import { collection, query } from "firebase/firestore";
 import { Observable, from, of, switchMap, tap } from 'rxjs';
+import { Utils } from '../utils/utils';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,7 @@ import { Observable, from, of, switchMap, tap } from 'rxjs';
 export class FetchDataService {
 
   private firestore = inject(Firestore)
+  private utils = inject(Utils)
 
   getUsers() {
     return collectionData(this.usersCollection, { idField: 'id' }) as Observable<User[]>
@@ -26,11 +28,11 @@ export class FetchDataService {
 
           if (search?.charAt(0) === '@') return of(data.filter(el => el.username.toLowerCase().includes(search.slice(1)?.toLowerCase() ?? '')))
 
-          let splitedTerms = this.returnLongStringAsArray(search ?? '')
-
+          let splitedTerms = this.utils.returnLongStringAsArray(search ?? '')
+          
           return of(data.filter(el => {
 
-            let textContentSplited = this.returnLongStringAsArray(el.textContent)
+            let textContentSplited = this.utils.returnLongStringAsArray(el.textContent)
 
             const condition = splitedTerms?.every(word => textContentSplited.includes(word))
 
@@ -43,10 +45,6 @@ export class FetchDataService {
           }))
         })
       ) as Observable<Thought[]>
-  }
-
-  returnLongStringAsArray(value: string) {
-    return value.replace(/,\s*|\n/g, ' ').trim().split(/\s+/).filter(word => word).map(el => el.toLowerCase())
   }
 
   addThought(thought: Thought): Observable<String> {

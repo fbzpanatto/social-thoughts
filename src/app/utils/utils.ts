@@ -11,4 +11,8 @@ export class Utils {
     const timestamp = Timestamp.fromDate(now);
     return new Timestamp(timestamp.seconds, timestamp.nanoseconds)
   }
+
+  returnLongStringAsArray(value: string) {
+    return value.replace(/,\s*|\n/g, ' ').trim().split(/\s+/).filter(word => word).map(el => el.toLowerCase())
+  }
 }
