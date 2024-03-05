@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { User, Thought } from '../interfaces/interfaces';
-import { Firestore, QueryOrderByConstraint, addDoc, collectionData, deleteDoc, doc, endAt, limit, orderBy, setDoc, startAfter } from '@angular/fire/firestore';
-import { collection, query, where, getDocs, startAt } from "firebase/firestore";
+import { Firestore, addDoc, collectionData, deleteDoc, doc, orderBy, setDoc } from '@angular/fire/firestore';
+import { collection, query } from "firebase/firestore";
 import { Observable, from, of, switchMap, tap } from 'rxjs';
 
 @Injectable({
@@ -32,7 +32,13 @@ export class FetchDataService {
 
             let textContentSplited = this.returnLongStringAsArray(el.textContent)
 
-            return splitedTerms?.every(word => textContentSplited.includes(word))
+            const condition = splitedTerms?.every(word => textContentSplited.includes(word))
+
+            if(!condition) {
+              console.log('deu falso')
+            }
+
+            return condition
 
           }))
         })
