@@ -29,15 +29,15 @@ export class FetchDataService {
           if (search?.charAt(0) === '@') return of(data.filter(el => el.username.toLowerCase().includes(search.slice(1)?.toLowerCase() ?? '')))
 
           let splitedTerms = this.utils.returnLongStringAsArray(search ?? '')
-          
+
           return of(data.filter(el => {
 
             let textContentSplited = this.utils.returnLongStringAsArray(el.textContent)
 
-            const condition = splitedTerms?.every(word => textContentSplited.includes(word))
+            let condition = splitedTerms?.every(word => textContentSplited.includes(word))
 
-            if(!condition) {
-              console.log('deu falso')
+            if (!condition) {
+              return !!textContentSplited.filter(el => { return el.search(`${search}`) !== -1 ? true : false })?.length
             }
 
             return condition
