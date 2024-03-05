@@ -26,18 +26,21 @@ export class FetchDataService {
 
           if (search?.charAt(0) === '@') return of(data.filter(el => el.username.toLowerCase().includes(search.slice(1)?.toLowerCase() ?? '')))
 
-          let splitedTerms = search?.split ? search.split(' ') : ['']
-          splitedTerms = splitedTerms.map(el => el.toLowerCase())
+          let splitedTerms = this.returnLongStringAsArray(search ?? '')
 
           return of(data.filter(el => {
 
-            let textContentSplited = el.textContent.replace(/,\s*|\n/g, ' ').trim().split(/\s+/).filter(word => word).map(el => el.toLowerCase())
+            let textContentSplited = this.returnLongStringAsArray(el.textContent)
 
-            return splitedTerms.every(word => textContentSplited.includes(word))
+            return splitedTerms?.every(word => textContentSplited.includes(word))
 
           }))
         })
       ) as Observable<Thought[]>
+  }
+
+  returnLongStringAsArray(value: string) {
+    return value.replace(/,\s*|\n/g, ' ').trim().split(/\s+/).filter(word => word).map(el => el.toLowerCase())
   }
 
   addThought(thought: Thought): Observable<String> {
