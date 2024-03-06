@@ -29,28 +29,30 @@ export class FetchDataService {
     query(this.thoughtsCollection, ...array) :
     query(this.thoughtsCollection);
 
-    return collectionData(q, { idField: 'id' }) as Observable<Thought[]>
+    // return collectionData(q, { idField: 'id' }) as Observable<Thought[]>
 
-    return collectionData(this.thoughtsCollection, { idField: 'id' })
+    return collectionData(q, { idField: 'id' })
       .pipe(
         switchMap((array) => {
           const data = array as Thought[]
 
-          if (search?.charAt(0) === '@') return of(data.filter(el => el.username.toLowerCase().includes(search.slice(1)?.toLowerCase() ?? '')))
+          return of(data.sort((a, b) => a.timestamp > b.timestamp ? 1 : 0))
 
-          let splitedTerms = this.utils.returnLongStringAsArray(search ?? '')
+          // if (search?.charAt(0) === '@') return of(data.filter(el => el.username.toLowerCase().includes(search.slice(1)?.toLowerCase() ?? '')))
 
-          return of(data.filter(el => {
+          // let splitedTerms = this.utils.returnLongStringAsArray(search ?? '')
 
-            let textContentSplited = this.utils.returnLongStringAsArray(el.textContent)
+          // return of(data.filter(el => {
 
-            let condition = splitedTerms?.every(word => textContentSplited.includes(word))
+          //   let textContentSplited = this.utils.returnLongStringAsArray(el.textContent)
 
-            if (!condition) { return !!textContentSplited.filter(el => { return el.search(`${search}`) !== -1 ? true : false })?.length }
+          //   let condition = splitedTerms?.every(word => textContentSplited.includes(word))
 
-            return condition
+          //   if (!condition) { return !!textContentSplited.filter(el => { return el.search(`${search}`) !== -1 ? true : false })?.length }
 
-          }))
+          //   return condition
+
+          // }))
         })
       ) as Observable<Thought[]>
   }
