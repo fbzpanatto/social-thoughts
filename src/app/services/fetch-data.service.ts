@@ -1,9 +1,8 @@
 import { Injectable, inject } from '@angular/core';
 import { User, Thought } from '../interfaces/interfaces';
-import { Firestore, addDoc, collectionData, deleteDoc, doc, orderBy, setDoc, where } from '@angular/fire/firestore';
+import { Firestore, addDoc, collectionData, deleteDoc, doc, setDoc, where } from '@angular/fire/firestore';
 import { collection, query } from "firebase/firestore";
-import { Observable, from, of, switchMap, tap } from 'rxjs';
-import { Utils } from '../utils/utils';
+import { Observable, from, of, switchMap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +10,6 @@ import { Utils } from '../utils/utils';
 export class FetchDataService {
 
   private firestore = inject(Firestore)
-  private utils = inject(Utils)
 
   getUsers() {
     return collectionData(this.usersCollection, { idField: 'id' }) as Observable<User[]>
@@ -19,40 +17,20 @@ export class FetchDataService {
 
   getThoughts(search: string | null) {
 
-    const array = [
+    let qArray = [
       where('textContent', '>=', search),
-      where('textContent', '<=', search+ '\uf8ff')
+      where('textContent', '<=', search + '\uf8ff')
     ]
 
-    // const q = query(this.thoughtsCollection, orderBy('timestamp', 'desc'), where('textContent', '==', search))
-    const q = search ?
-    query(this.thoughtsCollection, ...array) :
-    query(this.thoughtsCollection);
+    if (search?.charAt(0) === '@') qArray = [where('username', '>=', search.slice(1)?.toLowerCase() ?? '')]
 
-    // return collectionData(q, { idField: 'id' }) as Observable<Thought[]>
+    const q = search ? query(this.thoughtsCollection, ...qArray) : query(this.thoughtsCollection);
 
     return collectionData(q, { idField: 'id' })
       .pipe(
         switchMap((array) => {
-          const data = array as Thought[]
-
+          let data = array as Thought[]
           return of(data.sort((a, b) => b.timestamp.seconds - a.timestamp.seconds))
-
-          // if (search?.charAt(0) === '@') return of(data.filter(el => el.username.toLowerCase().includes(search.slice(1)?.toLowerCase() ?? '')))
-
-          // let splitedTerms = this.utils.returnLongStringAsArray(search ?? '')
-
-          // return of(data.filter(el => {
-
-          //   let textContentSplited = this.utils.returnLongStringAsArray(el.textContent)
-
-          //   let condition = splitedTerms?.every(word => textContentSplited.includes(word))
-
-          //   if (!condition) { return !!textContentSplited.filter(el => { return el.search(`${search}`) !== -1 ? true : false })?.length }
-
-          //   return condition
-
-          // }))
         })
       ) as Observable<Thought[]>
   }
