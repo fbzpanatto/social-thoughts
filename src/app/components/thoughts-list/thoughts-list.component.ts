@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, HostListener, OnInit, QueryList, ViewChildren, effect, inject, signal } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, OnInit, QueryList, ViewChildren, effect, inject, signal } from '@angular/core';
 import { FetchDataService } from '../../services/fetch-data.service';
 import { Observable, combineLatest, switchMap } from 'rxjs';
 import { Thought } from '../../interfaces/interfaces';
@@ -32,11 +32,6 @@ export class ThoughtsListComponent implements OnInit {
 	isExpanded = signal(false)
 
 	@ViewChildren('cardcontainer') cardContainers?: QueryList<ElementRef>;
-
-	// @HostListener('window:scroll', ['$event'])
-	// onScroll(event: Event) {
-	//   console.log('Scrolled!', event);
-	// }
 
 	thoughts$: Observable<Thought[]> = new Observable()
 
@@ -132,13 +127,11 @@ export class ThoughtsListComponent implements OnInit {
 			this.isExpanded.update(curr => curr = !curr)
 
 			this.#lastDivRef = card
-			window.scrollTo(0, 0);
+			this.scrollToYPosition(0)
 		}
 	}
 
-	scrollToYPosition(yPos: number) {
-		window.scrollTo(0, yPos);
-	}
+	scrollToYPosition(yPos: number) { window.scrollTo(0, yPos) }
 
 	removeThought(thoughtId: string | undefined) { this.#fetchService.removeThought(thoughtId as string) }
 
