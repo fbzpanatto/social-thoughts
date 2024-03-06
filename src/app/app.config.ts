@@ -6,6 +6,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { getAuth, provideAuth } from '@angular/fire/auth'
+import { ChangeIconPipe } from './components/pipes/change-icon.pipe';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBG4DL6pMtu2ad37gliscCUDnzvlN-IDq8",
@@ -19,6 +20,7 @@ const firebaseConfig = {
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    ChangeIconPipe,
     provideRouter(routes), 
     provideAnimationsAsync(),
     importProvidersFrom([
