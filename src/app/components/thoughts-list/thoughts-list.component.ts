@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, OnInit, QueryList, ViewChildren, effect, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, OnInit, QueryList, ViewChildren, effect, inject, signal } from '@angular/core';
 import { FetchDataService } from '../../services/fetch-data.service';
 import { Observable, combineLatest, switchMap } from 'rxjs';
 import { Thought } from '../../interfaces/interfaces';
@@ -35,12 +35,6 @@ export class ThoughtsListComponent implements OnInit {
 
 	thoughts$: Observable<Thought[]> = new Observable()
 
-	constructor() {
-		effect(() => {
-			console.log(this.isExpanded())
-		})
-	}
-
 	ngOnInit(): void {
 
 		this.thoughts$ = combineLatest([
@@ -73,19 +67,12 @@ export class ThoughtsListComponent implements OnInit {
 
 		if (this.#lastDivRef === undefined) {
 
-			this.#lastScrollY = window.scrollY;
+			this.#lastScrollY = this.windowScrollY;
 			this.isExpanded.update(curr => curr = true)
 
-			const card = this.cardContainers?.find((item: ElementRef<any>) => div.id === (item.nativeElement as HTMLElement).id)?.nativeElement as HTMLElement
-
-			card.style.gridColumn = '1 / span 2'
-			card.style.gridRow = '1 / span 2'
-
-			this.#lastDivRef = card
-			window.scrollTo(0, 0);
+			this.#lastDivRef = this.card(div)
+			this.scrollToYPosition(0)
 		} else if ((this.#lastDivRef != undefined) && div.id === this.#lastDivRef.id) {
-
-			console.log('mesmo id')
 
 			this.#lastDivRef = div
 
@@ -93,8 +80,7 @@ export class ThoughtsListComponent implements OnInit {
 
 			if (signalCondition) {
 
-				this.#lastDivRef!.style.gridColumn = 'auto'
-				this.#lastDivRef!.style.gridRow = 'auto'
+				this.resetLastDiv(this.#lastDivRef)
 
 				this.scrollToYPosition(this.#lastScrollY)
 				this.isExpanded.update(curr => curr = false)
@@ -112,21 +98,17 @@ export class ThoughtsListComponent implements OnInit {
 
 		} else if ((this.#lastDivRef != undefined) && div.id != this.#lastDivRef.id) {
 
-			console.log('outro id')
+			const signalCondition = this.isExpanded()
+
+			if (signalCondition) { this.#lastScrollY = window.scrollY }
 
 			this.#lastScrollY = window.scrollY;
 
-			this.#lastDivRef!.style.gridColumn = 'auto'
-			this.#lastDivRef!.style.gridRow = 'auto'
+			this.resetLastDiv(this.#lastDivRef)
 
-			const card = this.cardContainers?.find((item: ElementRef<any>) => div.id === (item.nativeElement as HTMLElement).id)?.nativeElement as HTMLElement
+			this.isExpanded.update(curr => curr = true)
 
-			card.style.gridColumn = '1 / span 2'
-			card.style.gridRow = '1 / span 2'
-
-			this.isExpanded.update(curr => curr = !curr)
-
-			this.#lastDivRef = card
+			this.#lastDivRef = this.card(div)
 			this.scrollToYPosition(0)
 		}
 	}
@@ -135,9 +117,25 @@ export class ThoughtsListComponent implements OnInit {
 
 	removeThought(thoughtId: string | undefined) { this.#fetchService.removeThought(thoughtId as string) }
 
+	card(div: HTMLElement) {
+		const card = this.cardContainers?.find((item: ElementRef<any>) => div.id === (item.nativeElement as HTMLElement).id)?.nativeElement as HTMLElement
+
+		card.style.gridColumn = '1 / span 2'
+		card.style.gridRow = '1 / span 2'
+
+		return card
+	}
+
+	resetLastDiv(lastDiv: HTMLElement) {
+		lastDiv.style.gridColumn = 'auto'
+		lastDiv.style.gridRow = 'auto'
+	}
+
 	get isAuthenticated() { return this.#authService.isAuthenticated }
 
 	get uid() { return this.#authService.uid }
 
 	get username() { return this.#authService.username }
+
+	get windowScrollY() { return window.scrollY }
 }
