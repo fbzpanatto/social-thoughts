@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, HostListener, OnInit, QueryList, ViewChildren, inject } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, HostListener, OnInit, QueryList, ViewChildren, effect, inject, signal } from '@angular/core';
 import { FetchDataService } from '../../services/fetch-data.service';
 import { Observable, combineLatest, switchMap } from 'rxjs';
 import { Thought } from '../../interfaces/interfaces';
@@ -19,7 +19,7 @@ import { CheckOwnerPipe } from "../pipes/check-owner.pipe";
 	standalone: true,
 	templateUrl: './thoughts-list.component.html',
 	styleUrls: ['./thoughts-list.component.css', '../../styles/generic.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush,
+	changeDetection: ChangeDetectionStrategy.Default,
 	imports: [CommonModule, MatCardModule, MatButtonModule, MatDividerModule, MatIconModule, ReactiveFormsModule, CheckIconPipe, TimestampPipe, CheckOwnerPipe]
 })
 export class ThoughtsListComponent implements OnInit {
@@ -28,15 +28,23 @@ export class ThoughtsListComponent implements OnInit {
 	#userInputService = inject(UserInputService)
 	#authService = inject(AuthService)
 	#lastDivRef?: HTMLElement
+	#lastScrollY = 0
+	isExpanded = signal(false)
 
 	@ViewChildren('cardcontainer') cardContainers?: QueryList<ElementRef>;
 
-	@HostListener('window:scroll', ['$event'])
-  onScroll(event: Event) {
-    console.log('Scrolled!', event);
-  }
+	// @HostListener('window:scroll', ['$event'])
+	// onScroll(event: Event) {
+	//   console.log('Scrolled!', event);
+	// }
 
 	thoughts$: Observable<Thought[]> = new Observable()
+
+	constructor() {
+		effect(() => {
+			console.log(this.isExpanded())
+		})
+	}
 
 	ngOnInit(): void {
 
@@ -68,25 +76,69 @@ export class ThoughtsListComponent implements OnInit {
 
 	expand(div: HTMLElement) {
 
-		if((this.#lastDivRef != undefined) && div.id != this.#lastDivRef.id) {
-			
+		if (this.#lastDivRef === undefined) {
+
+			this.#lastScrollY = window.scrollY;
+			this.isExpanded.update(curr => curr = true)
+
+			const card = this.cardContainers?.find((item: ElementRef<any>) => div.id === (item.nativeElement as HTMLElement).id)?.nativeElement as HTMLElement
+
+			card.style.gridColumn = '1 / span 2'
+			card.style.gridRow = '1 / span 2'
+
+			this.#lastDivRef = card
+			window.scrollTo(0, 0);
+		} else if ((this.#lastDivRef != undefined) && div.id === this.#lastDivRef.id) {
+
+			console.log('mesmo id')
+
+			this.#lastDivRef = div
+
+			const signalCondition = this.isExpanded()
+
+			if (signalCondition) {
+
+				this.#lastDivRef!.style.gridColumn = 'auto'
+				this.#lastDivRef!.style.gridRow = 'auto'
+
+				this.scrollToYPosition(this.#lastScrollY)
+				this.isExpanded.update(curr => curr = false)
+
+			} else {
+
+				this.#lastScrollY = window.scrollY;
+
+				this.#lastDivRef!.style.gridColumn = '1 / span 2'
+				this.#lastDivRef!.style.gridRow = '1 / span 2'
+
+				this.scrollToYPosition(0)
+				this.isExpanded.update(curr => curr = true)
+			}
+
+		} else if ((this.#lastDivRef != undefined) && div.id != this.#lastDivRef.id) {
+
+			console.log('outro id')
+
+			this.#lastScrollY = window.scrollY;
+
 			this.#lastDivRef!.style.gridColumn = 'auto'
 			this.#lastDivRef!.style.gridRow = 'auto'
-			
-			this.#lastDivRef = div
-		} else { this.#lastDivRef = div }
 
-		const card = this.cardContainers?.find((item: ElementRef<any>) => div.id === (item.nativeElement as HTMLElement).id)?.nativeElement as HTMLElement
+			const card = this.cardContainers?.find((item: ElementRef<any>) => div.id === (item.nativeElement as HTMLElement).id)?.nativeElement as HTMLElement
 
-		card.style.gridColumn = '1 / span 2'
-		card.style.gridRow = '1 / span 2'
+			card.style.gridColumn = '1 / span 2'
+			card.style.gridRow = '1 / span 2'
 
-		this.scrollToTop()
+			this.isExpanded.update(curr => curr = !curr)
+
+			this.#lastDivRef = card
+			window.scrollTo(0, 0);
+		}
 	}
 
-	scrollToTop() {
-    window.scrollTo(0, 0);
-  }
+	scrollToYPosition(yPos: number) {
+		window.scrollTo(0, yPos);
+	}
 
 	removeThought(thoughtId: string | undefined) { this.#fetchService.removeThought(thoughtId as string) }
 
