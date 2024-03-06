@@ -16,6 +16,9 @@
       <mat-card-title>{{ thought?.username }}</mat-card-title>
       <mat-card-subtitle> {{ thought?.timestamp?.seconds | appTimestamp }} </mat-card-subtitle>
       <span class="spacer"></span>
+      <button mat-button class="expand">
+        <mat-icon color="primary">open_in_full</mat-icon>
+      </button>
       <button [disabled]="!isAuthenticated" class="like-btn" mat-button (click)="changeThoughtLikes(thought)">
         <mat-icon [ngClass]="isAuthenticated ? 'enabled' : 'disabled'" color="primary">
           {{ { thought, uid} | appCheckIcon }}

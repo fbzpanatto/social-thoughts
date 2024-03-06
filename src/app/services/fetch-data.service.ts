@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { User, Thought } from '../interfaces/interfaces';
-import { Firestore, addDoc, collectionData, deleteDoc, doc, orderBy, setDoc } from '@angular/fire/firestore';
+import { Firestore, addDoc, collectionData, deleteDoc, doc, orderBy, setDoc, where } from '@angular/fire/firestore';
 import { collection, query } from "firebase/firestore";
 import { Observable, from, of, switchMap, tap } from 'rxjs';
 import { Utils } from '../utils/utils';
@@ -19,9 +19,19 @@ export class FetchDataService {
 
   getThoughts(search: string | null) {
 
-    const q = query(this.thoughtsCollection, orderBy('timestamp', 'desc'))
+    const array = [
+      where('textContent', '>=', search),
+      where('textContent', '<=', search+ '\uf8ff')
+    ]
 
-    return collectionData(q, { idField: 'id' })
+    // const q = query(this.thoughtsCollection, orderBy('timestamp', 'desc'), where('textContent', '==', search))
+    const q = search ?
+    query(this.thoughtsCollection, ...array) :
+    query(this.thoughtsCollection);
+
+    return collectionData(q, { idField: 'id' }) as Observable<Thought[]>
+
+    return collectionData(this.thoughtsCollection, { idField: 'id' })
       .pipe(
         switchMap((array) => {
           const data = array as Thought[]
