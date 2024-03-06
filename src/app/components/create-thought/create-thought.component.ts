@@ -42,6 +42,7 @@ export class CreateThoughtComponent {
     const username = this.#authService.username
 
     this.#fetchService.addThought({ textContent: text ?? '', username: username, timestamp: time, like: 0, userUid: uid, likedBy: [] })
+    this.#userInputService.userInputFormControl.patchValue('')
   }
 
   get condition() { return this.#condition.asReadonly() }

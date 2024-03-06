@@ -36,7 +36,7 @@ export class FetchDataService {
         switchMap((array) => {
           const data = array as Thought[]
 
-          return of(data.sort((a, b) => a.timestamp > b.timestamp ? 1 : 0))
+          return of(data.sort((a, b) => b.timestamp.seconds - a.timestamp.seconds))
 
           // if (search?.charAt(0) === '@') return of(data.filter(el => el.username.toLowerCase().includes(search.slice(1)?.toLowerCase() ?? '')))
 
