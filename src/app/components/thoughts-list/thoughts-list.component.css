@@ -1,21 +1,14 @@
 :host {
 
-  display: flex;
-  flex-wrap: wrap;
-  gap: 3vmin;
-  padding: 6vmin;
-
-  /* display: inline-grid;
+  display: inline-grid;
   grid-template-columns: auto;
   gap: 3vmin;
-  padding: 6vmin; */
+  padding: 6vmin;
+  position: relative;
+  margin-top: 24vh;
+  overflow: hidden;
 
   .card-container {
-
-    /* width: 100vw;
-    height: 35vh; */
-
-    flex: 1;
 
     border: 1px solid #a112d53d;
     border-radius: 4px;
@@ -92,6 +85,23 @@
           }
         }
       }
+    }
+  }
+}
+
+
+@media (max-width: 728px) {
+  :host {
+    display: inline-grid;
+    grid-template-columns: auto;
+    gap: 3vmin;
+    padding: 6vmin;
+    position: relative;
+    margin-top: 20vh;
+    overflow: hidden;
+
+    .card {
+      height: 100%;
     }
   }
 }

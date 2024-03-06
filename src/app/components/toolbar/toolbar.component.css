@@ -1,13 +1,12 @@
 :host {
-  position: sticky;
+  position: fixed;
+  width: 100%;
   top: 0;
   z-index: 1;
   background-color: #fafafa;
 
   mat-toolbar {
-
-
-
+    
     height: 8vh;
   }
 

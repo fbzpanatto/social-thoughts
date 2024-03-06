@@ -11,7 +11,7 @@ import { SeletorService } from '../../services/seletor.service';
   standalone: true,
   templateUrl: './application-wrapper.component.html',
   styleUrls: ['./application-wrapper.component.css', '../../styles/generic.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
   imports: [
     CommonModule,
     ToolbarComponent,

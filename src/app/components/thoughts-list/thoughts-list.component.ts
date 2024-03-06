@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, HostListener, OnInit, QueryList, ViewChildren, inject } from '@angular/core';
 import { FetchDataService } from '../../services/fetch-data.service';
 import { Observable, combineLatest, switchMap } from 'rxjs';
 import { Thought } from '../../interfaces/interfaces';
@@ -27,6 +27,14 @@ export class ThoughtsListComponent implements OnInit {
 	#fetchService = inject(FetchDataService)
 	#userInputService = inject(UserInputService)
 	#authService = inject(AuthService)
+	#lastDivRef?: HTMLElement
+
+	@ViewChildren('cardcontainer') cardContainers?: QueryList<ElementRef>;
+
+	@HostListener('window:scroll', ['$event'])
+  onScroll(event: Event) {
+    console.log('Scrolled!', event);
+  }
 
 	thoughts$: Observable<Thought[]> = new Observable()
 
@@ -57,6 +65,28 @@ export class ThoughtsListComponent implements OnInit {
 
 		this.#fetchService.updateThought(thought.id as string, { ...thought })
 	}
+
+	expand(div: HTMLElement) {
+
+		if((this.#lastDivRef != undefined) && div.id != this.#lastDivRef.id) {
+			
+			this.#lastDivRef!.style.gridColumn = 'auto'
+			this.#lastDivRef!.style.gridRow = 'auto'
+			
+			this.#lastDivRef = div
+		} else { this.#lastDivRef = div }
+
+		const card = this.cardContainers?.find((item: ElementRef<any>) => div.id === (item.nativeElement as HTMLElement).id)?.nativeElement as HTMLElement
+
+		card.style.gridColumn = '1 / span 2'
+		card.style.gridRow = '1 / span 2'
+
+		this.scrollToTop()
+	}
+
+	scrollToTop() {
+    window.scrollTo(0, 0);
+  }
 
 	removeThought(thoughtId: string | undefined) { this.#fetchService.removeThought(thoughtId as string) }
 
