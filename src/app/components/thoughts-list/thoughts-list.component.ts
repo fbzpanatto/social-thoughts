@@ -15,7 +15,7 @@ import { TimestampPipe } from '../pipes/timestamp.pipe';
 import { CheckOwnerPipe } from "../pipes/check-owner.pipe";
 import { ChangeIconPipe } from "../pipes/change-icon.pipe";
 import { BreakpointObserver, MediaMatcher } from '@angular/cdk/layout';
-import { environment as env } from '../../../environments/environment';
+import { environment as env } from '../../environments/environment';
 
 @Component({
 	selector: 'app-thoughts-list',
@@ -57,15 +57,19 @@ export class ThoughtsListComponent implements OnInit {
 
 			const isMaxWidth728 = this.isMaxWidth728()
 
-			if (isMaxWidth728) {
-				if(this.#lastDivRef) {
-					this.#lastDivRef.style.gridColumn = env.auto
-					this.#lastDivRef.style.gridRow = env.auto
-					this.#lastDivRef.style.height = env.auto
-					this.#lastScrollY = this.#lastDivRef.offsetTop
-					this.scrollToYPosition((this.#lastDivRef.offsetTop) - 50)
-				}
-			}
+			console.log('isMaxWidth728', isMaxWidth728)
+
+			// if (isMaxWidth728 && this.#lastDivRef) {
+			// 	this.#lastDivRef.style.gridColumn = env.auto
+			// 	this.#lastDivRef.style.gridRow = env.auto
+			// 	this.#lastDivRef.style.height = env.auto
+			// 	this.#lastScrollY = this.#lastDivRef.offsetTop
+			// 	this.scrollToYPosition((this.#lastDivRef.offsetTop) - 50)
+			// } else if (this.#lastDivRef && !isMaxWidth728 && this.#lastDivRef.style.height === env.vh40) {
+			// 	this.#lastDivRef.style.gridColumn = '1 / span 2'
+			// 	this.#lastDivRef.style.gridRow = '1 / span 2'
+			// 	this.#lastDivRef.style.height = env.auto
+			// }
 		})
 	}
 
@@ -115,49 +119,41 @@ export class ThoughtsListComponent implements OnInit {
 		this.#fetchService.updateThought(thought.id as string, { ...thought })
 	}
 
-	expand(div: HTMLElement) {
+	expand(clickedThought: HTMLElement) {
+
+		const isExpanded = this.isExpanded()
 
 		if (this.#lastDivRef === undefined) {
 
-			this.#lastScrollY = this.windowScrollY;
 			this.isExpanded.update(curr => curr = true)
+			this.#lastDivRef = this.lastDivSettings(clickedThought)
 
-			this.#lastDivRef = this.card(div)
-			this.scrollToYPosition(env.zero)
+		} else if (this.#lastDivRef && clickedThought.id === this.#lastDivRef.id) {
 
-		} else if ((this.#lastDivRef != undefined) && div.id === this.#lastDivRef.id) {
-
-			this.#lastDivRef = div
-
-			this.#lastScrollY = this.#lastDivRef.offsetTop
-
-			const signalCondition = this.isExpanded()
-
-			if (signalCondition) {
-
-				this.resetLastDiv(this.#lastDivRef)
-
-				this.scrollToYPosition(this.#lastScrollY)
+			if (isExpanded) {
 				this.isExpanded.update(curr => curr = false)
-
 			} else {
-
-				this.#lastScrollY = window.scrollY;
-
-				this.card(this.#lastDivRef)
-
-				this.scrollToYPosition(env.zero)
 				this.isExpanded.update(curr => curr = true)
 			}
 
-		} else if ((this.#lastDivRef != undefined) && div.id != this.#lastDivRef.id) {
+			this.#lastDivRef = this.lastDivSettings(clickedThought)
 
-			this.#lastScrollY = window.scrollY;
+		} else if (this.#lastDivRef && clickedThought.id != this.#lastDivRef.id) {
 
-			this.resetLastDiv(this.#lastDivRef)
+			if (isExpanded) {
 
-			this.#lastDivRef = this.card(div)
-			this.scrollToYPosition(env.zero)
+				this.#lastDivRef.style.gridColumn = env.auto
+				this.#lastDivRef.style.gridRow = env.auto
+				this.#lastDivRef.style.height = env.auto
+
+				this.#lastDivRef = this.lastDivSettings(clickedThought)
+
+			} else {
+
+				this.isExpanded.update(curr => curr = true)
+				this.#lastDivRef = this.lastDivSettings(clickedThought)
+
+			}
 		}
 	}
 
@@ -165,39 +161,41 @@ export class ThoughtsListComponent implements OnInit {
 
 	removeThought(thoughtId: string | undefined) { this.#fetchService.removeThought(thoughtId as string) }
 
-	card(div: HTMLElement) {
-		const card = this.cardContainers?.find((item: ElementRef<any>) => div.id === (item.nativeElement as HTMLElement).id)?.nativeElement as HTMLElement
+	lastDivSettings(divCard: HTMLElement) {
+
+		const el = this.cardContainers?.find((item: ElementRef<any>) => divCard.id === (item.nativeElement as HTMLElement).id)?.nativeElement as HTMLElement
 
 		const isMaxWidth728 = this.isMaxWidth728()
+		const isExpanded = this.isExpanded()
 
-		if (!isMaxWidth728) {
+		if (isExpanded && !isMaxWidth728) {
+			el.style.gridColumn = '1 / span 2'
+			el.style.gridRow = '1 / span 2'
+			el.style.height = env.auto
+			this.scrollToYPosition(el.clientTop)
 
-			card.style.gridColumn = '1 / span 2'
-			card.style.gridRow = '1 / span 2'
+		} else if (isExpanded && isMaxWidth728) {
+			el.style.gridColumn = env.one
+			el.style.gridRow = env.one
+			el.style.height = env.vh40
+			this.scrollToYPosition(el.clientTop)
 
-		} else {
-			card.style.gridColumn = env.one
-			card.style.gridRow = env.one
-			card.style.height = env.vh40
+		} else if (!isExpanded && isMaxWidth728) {
+			el.style.gridColumn = env.auto
+			el.style.gridRow = env.auto
+			el.style.height = env.auto
+			this.scrollToYPosition(el.offsetTop - el.offsetHeight)
+
+		} else if (!isExpanded && !isMaxWidth728) {
+			el.style.gridColumn = env.auto
+			el.style.gridRow = env.auto
+			el.style.height = env.auto
+			this.scrollToYPosition(el.offsetTop - el.offsetHeight)
 		}
 
-		return card
-	}
+		el.focus()
 
-	resetLastDiv(lastDiv?: HTMLElement) {
-		
-		this.lastDivRef = undefined
-
-		if (lastDiv) {
-
-			lastDiv.style.gridColumn = env.auto
-			lastDiv.style.gridRow = env.auto
-			lastDiv.style.height = env.auto
-			this.#lastScrollY = lastDiv.offsetTop
-
-			this.scrollToYPosition((this.#lastScrollY) - 50)
-			lastDiv.focus()
-		}
+		return el
 	}
 
 	get lastDivRef() { return this.#lastDivRef }
