@@ -36,6 +36,8 @@ export class ThoughtsListComponent implements OnInit {
 
 	thoughts$: Observable<Thought[]> = new Observable()
 
+	
+
 	ngOnInit(): void {
 
 		this.thoughts$ = combineLatest([
@@ -73,6 +75,7 @@ export class ThoughtsListComponent implements OnInit {
 
 			this.#lastDivRef = this.card(div)
 			this.scrollToYPosition(0)
+
 		} else if ((this.#lastDivRef != undefined) && div.id === this.#lastDivRef.id) {
 
 			this.#lastDivRef = div
@@ -90,8 +93,7 @@ export class ThoughtsListComponent implements OnInit {
 
 				this.#lastScrollY = window.scrollY;
 
-				this.#lastDivRef!.style.gridColumn = '1 / span 2'
-				this.#lastDivRef!.style.gridRow = '1 / span 2'
+				this.card(this.#lastDivRef)
 
 				this.scrollToYPosition(0)
 				this.isExpanded.update(curr => curr = true)
