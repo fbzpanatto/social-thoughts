@@ -33,14 +33,15 @@ export class ThoughtsListComponent implements OnInit {
 	#authService = inject(AuthService)
 	#lastDivRef?: HTMLElement
 	#lastScrollY = 0
-	isExpanded = signal(false)
-	private readonly _mobileQueryListener: (() => void) | undefined;
+	#mobileQueryListener: (() => void) | undefined;
 
 	thoughts$: Observable<Thought[]> = new Observable()
 	mobileQuery!: MediaQueryList;
 	minWidth728 = false
 	maxWidth728 = true
+
 	isMaxWidth728 = signal(true)
+	isExpanded = signal(false)
 
 	constructor(
 		private responsive: BreakpointObserver,
@@ -48,8 +49,8 @@ export class ThoughtsListComponent implements OnInit {
 		changeDetectorRef: ChangeDetectorRef,
 	) {
 		this.mobileQuery = media.matchMedia('(max-width: 960px)')
-		this._mobileQueryListener = () => changeDetectorRef.detectChanges();
-		this.mobileQuery.addEventListener('change', this._mobileQueryListener);
+		this.#mobileQueryListener = () => changeDetectorRef.detectChanges();
+		this.mobileQuery.addEventListener('change', this.#mobileQueryListener);
 
 		effect(() => {
 
@@ -170,8 +171,6 @@ export class ThoughtsListComponent implements OnInit {
 		const card = this.cardContainers?.find((item: ElementRef<any>) => div.id === (item.nativeElement as HTMLElement).id)?.nativeElement as HTMLElement
 
 		const is728 = this.isMaxWidth728()
-		const isExpanded = this.isExpanded()
-		console.log('isExpanded', isExpanded)
 
 		if (!is728) {
 
