@@ -15,6 +15,7 @@ import { TimestampPipe } from '../pipes/timestamp.pipe';
 import { CheckOwnerPipe } from "../pipes/check-owner.pipe";
 import { ChangeIconPipe } from "../pipes/change-icon.pipe";
 import { BreakpointObserver, MediaMatcher } from '@angular/cdk/layout';
+import { environment as env } from '../../../environments/environment';
 
 @Component({
 	selector: 'app-thoughts-list',
@@ -32,7 +33,7 @@ export class ThoughtsListComponent implements OnInit {
 	#userInputService = inject(UserInputService)
 	#authService = inject(AuthService)
 	#lastDivRef?: HTMLElement
-	#lastScrollY = 0
+	#lastScrollY = env.zero
 	#mobileQueryListener: (() => void) | undefined;
 
 	thoughts$: Observable<Thought[]> = new Observable()
@@ -79,16 +80,13 @@ export class ThoughtsListComponent implements OnInit {
 
 	setBreakpointObserver() {
 
-		const minWidth728 = '(min-width: 728px)'
-		const maxWidth728 = '(max-width: 728px)'
-
 		this.responsive
-			.observe([minWidth728, maxWidth728])
+			.observe([env.minWidth728, env.maxWidth728])
 			.subscribe(result => {
 				const breakpoints = result.breakpoints;
 
-				this.minWidth728 = breakpoints[minWidth728];
-				this.maxWidth728 = breakpoints[maxWidth728]
+				this.minWidth728 = breakpoints[env.minWidth728];
+				this.maxWidth728 = breakpoints[env.maxWidth728]
 
 				const condition = !this.minWidth728 && this.maxWidth728
 
@@ -104,14 +102,14 @@ export class ThoughtsListComponent implements OnInit {
 
 	changeThoughtLikes(thought: Thought) {
 
-		const element = thought.likedBy.indexOf(this.uid, 0)
+		const element = thought.likedBy.indexOf(this.uid, env.zero)
 
 		if (element > -1) {
-			thought.likedBy.splice(element, 1)
-			thought.like = thought.like - 1
+			thought.likedBy.splice(element, parseInt(env.one))
+			thought.like = thought.like - parseInt(env.one)
 		} else {
 			thought.likedBy.push(this.uid)
-			thought.like = thought.like + 1
+			thought.like = thought.like + parseInt(env.one)
 		}
 
 		this.#fetchService.updateThought(thought.id as string, { ...thought })
@@ -125,7 +123,7 @@ export class ThoughtsListComponent implements OnInit {
 			this.isExpanded.update(curr => curr = true)
 
 			this.#lastDivRef = this.card(div)
-			this.scrollToYPosition(0)
+			this.scrollToYPosition(env.zero)
 
 		} else if ((this.#lastDivRef != undefined) && div.id === this.#lastDivRef.id) {
 
@@ -146,7 +144,7 @@ export class ThoughtsListComponent implements OnInit {
 
 				this.card(this.#lastDivRef)
 
-				this.scrollToYPosition(0)
+				this.scrollToYPosition(env.zero)
 				this.isExpanded.update(curr => curr = true)
 			}
 
@@ -159,7 +157,7 @@ export class ThoughtsListComponent implements OnInit {
 			this.resetLastDiv(this.#lastDivRef)
 
 			this.#lastDivRef = this.card(div)
-			this.scrollToYPosition(0)
+			this.scrollToYPosition(env.zero)
 		}
 	}
 
@@ -178,9 +176,9 @@ export class ThoughtsListComponent implements OnInit {
 			card.style.gridRow = '1 / span 2'
 
 		} else {
-			card.style.gridColumn = '1'
-			card.style.gridRow = '1'
-			card.style.height = '40vh'
+			card.style.gridColumn = env.one
+			card.style.gridRow = env.one
+			card.style.height = env.vh40
 		}
 
 		return card
@@ -191,9 +189,9 @@ export class ThoughtsListComponent implements OnInit {
 		this.lastDivRef = undefined
 
 		if (lastDiv) {
-			lastDiv.style.gridColumn = 'auto'
-			lastDiv.style.gridRow = 'auto'
-			lastDiv.style.height = 'auto'
+			lastDiv.style.gridColumn = env.auto
+			lastDiv.style.gridRow = env.auto
+			lastDiv.style.height = env.auto
 		}
 	}
 
