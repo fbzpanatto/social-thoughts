@@ -38,21 +38,7 @@ export class SearchBarComponent implements OnInit {
 
   ngOnInit(): void {
 
-    // const slash = '/'
-
     this.#userInputService.userInput = this.userInput
-
-    // this.userInput.valueChanges.subscribe(values => {
-
-    //   const char = values?.charAt(0)
-
-    //   if (char === slash && values?.length === 1) {
-    //     this.#showOptions.update(curr => curr = true)
-    //     return
-    //   }
-    //   this.#showOptions.update(curr => curr = false)
-    //   return
-    // })
   }
 
   select($event: number) {
