@@ -130,11 +130,8 @@ export class ThoughtsListComponent implements OnInit {
 
 		} else if (this.#lastDivRef && clickedThought.id === this.#lastDivRef.id) {
 
-			if (isExpanded) {
-				this.isExpanded.update(curr => curr = false)
-			} else {
-				this.isExpanded.update(curr => curr = true)
-			}
+			if (isExpanded) { this.isExpanded.update(curr => curr = false) }
+			else { this.isExpanded.update(curr => curr = true) }
 
 			this.#lastDivRef = this.lastDivSettings(clickedThought)
 
