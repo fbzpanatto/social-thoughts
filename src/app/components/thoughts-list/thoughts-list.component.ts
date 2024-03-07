@@ -58,13 +58,13 @@ export class ThoughtsListComponent implements OnInit {
 			const isMaxWidth728 = this.isMaxWidth728()
 
 			if (isMaxWidth728) {
-
-				this.resetLastDiv(this.#lastDivRef)
-
-			} else {
-
-
-
+				if(this.#lastDivRef) {
+					this.#lastDivRef.style.gridColumn = env.auto
+					this.#lastDivRef.style.gridRow = env.auto
+					this.#lastDivRef.style.height = env.auto
+					this.#lastScrollY = this.#lastDivRef.offsetTop
+					this.scrollToYPosition((this.#lastDivRef.offsetTop) - 50)
+				}
 			}
 		})
 	}
@@ -129,6 +129,8 @@ export class ThoughtsListComponent implements OnInit {
 
 			this.#lastDivRef = div
 
+			this.#lastScrollY = this.#lastDivRef.offsetTop
+
 			const signalCondition = this.isExpanded()
 
 			if (signalCondition) {
@@ -150,8 +152,6 @@ export class ThoughtsListComponent implements OnInit {
 
 		} else if ((this.#lastDivRef != undefined) && div.id != this.#lastDivRef.id) {
 
-			const signalCondition = this.isExpanded()
-
 			this.#lastScrollY = window.scrollY;
 
 			this.resetLastDiv(this.#lastDivRef)
@@ -168,9 +168,9 @@ export class ThoughtsListComponent implements OnInit {
 	card(div: HTMLElement) {
 		const card = this.cardContainers?.find((item: ElementRef<any>) => div.id === (item.nativeElement as HTMLElement).id)?.nativeElement as HTMLElement
 
-		const is728 = this.isMaxWidth728()
+		const isMaxWidth728 = this.isMaxWidth728()
 
-		if (!is728) {
+		if (!isMaxWidth728) {
 
 			card.style.gridColumn = '1 / span 2'
 			card.style.gridRow = '1 / span 2'
@@ -185,13 +185,18 @@ export class ThoughtsListComponent implements OnInit {
 	}
 
 	resetLastDiv(lastDiv?: HTMLElement) {
-
+		
 		this.lastDivRef = undefined
 
 		if (lastDiv) {
+
 			lastDiv.style.gridColumn = env.auto
 			lastDiv.style.gridRow = env.auto
 			lastDiv.style.height = env.auto
+			this.#lastScrollY = lastDiv.offsetTop
+
+			this.scrollToYPosition((this.#lastScrollY) - 50)
+			lastDiv.focus()
 		}
 	}
 
