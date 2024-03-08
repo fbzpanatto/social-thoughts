@@ -55,21 +55,9 @@ export class ThoughtsListComponent implements OnInit {
 
 		effect(() => {
 
-			const isMaxWidth728 = this.isMaxWidth728()
+			this.isMaxWidth728()
 
-			console.log('isMaxWidth728', isMaxWidth728)
-
-			// if (isMaxWidth728 && this.#lastDivRef) {
-			// 	this.#lastDivRef.style.gridColumn = env.auto
-			// 	this.#lastDivRef.style.gridRow = env.auto
-			// 	this.#lastDivRef.style.height = env.auto
-			// 	this.#lastScrollY = this.#lastDivRef.offsetTop
-			// 	this.scrollToYPosition((this.#lastDivRef.offsetTop) - 50)
-			// } else if (this.#lastDivRef && !isMaxWidth728 && this.#lastDivRef.style.height === env.vh40) {
-			// 	this.#lastDivRef.style.gridColumn = '1 / span 2'
-			// 	this.#lastDivRef.style.gridRow = '1 / span 2'
-			// 	this.#lastDivRef.style.height = env.auto
-			// }
+			if (this.#lastDivRef) { this.lastDivSettings(this.#lastDivRef) }
 		})
 	}
 
