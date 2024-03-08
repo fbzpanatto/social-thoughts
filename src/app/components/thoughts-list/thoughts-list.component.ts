@@ -15,7 +15,7 @@ import { TimestampPipe } from '../pipes/timestamp.pipe';
 import { CheckOwnerPipe } from "../pipes/check-owner.pipe";
 import { ChangeIconPipe } from "../pipes/change-icon.pipe";
 import { BreakpointObserver, MediaMatcher } from '@angular/cdk/layout';
-import { environment as env } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 
 @Component({
 	selector: 'app-thoughts-list',
@@ -72,12 +72,12 @@ export class ThoughtsListComponent implements OnInit {
 	setBreakpointObserver() {
 
 		this.responsive
-			.observe([env.minWidth728, env.maxWidth728])
+			.observe([environment.minWidth728, environment.maxWidth728])
 			.subscribe(result => {
 				const breakpoints = result.breakpoints;
 
-				this.minWidth728 = breakpoints[env.minWidth728];
-				this.maxWidth728 = breakpoints[env.maxWidth728]
+				this.minWidth728 = breakpoints[environment.minWidth728];
+				this.maxWidth728 = breakpoints[environment.maxWidth728]
 
 				const condition = !this.minWidth728 && this.maxWidth728
 
@@ -93,14 +93,14 @@ export class ThoughtsListComponent implements OnInit {
 
 	changeThoughtLikes(thought: Thought) {
 
-		const element = thought.likedBy.indexOf(this.uid, env.zero)
+		const element = thought.likedBy.indexOf(this.uid, environment.zero)
 
 		if (element > -1) {
-			thought.likedBy.splice(element, parseInt(env.one))
-			thought.like = thought.like - parseInt(env.one)
+			thought.likedBy.splice(element, parseInt(environment.one))
+			thought.like = thought.like - parseInt(environment.one)
 		} else {
 			thought.likedBy.push(this.uid)
-			thought.like = thought.like + parseInt(env.one)
+			thought.like = thought.like + parseInt(environment.one)
 		}
 
 		this.#fetchService.updateThought(thought.id as string, { ...thought })
@@ -125,9 +125,9 @@ export class ThoughtsListComponent implements OnInit {
 
 			if (isExpanded) {
 
-				this.#lastDivRef.style.gridColumn = env.auto
-				this.#lastDivRef.style.gridRow = env.auto
-				this.#lastDivRef.style.height = env.auto
+				this.#lastDivRef.style.gridColumn = environment.auto
+				this.#lastDivRef.style.gridRow = environment.auto
+				this.#lastDivRef.style.height = environment.auto
 
 				this.#lastDivRef = this.lastDivSettings(clickedThought)
 
@@ -153,25 +153,25 @@ export class ThoughtsListComponent implements OnInit {
 		if (isExpanded && !isMaxWidth728) {
 			el.style.gridColumn = '1 / span 2'
 			el.style.gridRow = '1 / span 2'
-			el.style.height = env.auto
+			el.style.height = environment.auto
 			this.scrollToYPosition(el.clientTop)
 
 		} else if (isExpanded && isMaxWidth728) {
-			el.style.gridColumn = env.one
-			el.style.gridRow = env.one
-			el.style.height = env.vh40
+			el.style.gridColumn = environment.one
+			el.style.gridRow = environment.one
+			el.style.height = environment.vh40
 			this.scrollToYPosition(el.clientTop)
 
 		} else if (!isExpanded && isMaxWidth728) {
-			el.style.gridColumn = env.auto
-			el.style.gridRow = env.auto
-			el.style.height = env.auto
+			el.style.gridColumn = environment.auto
+			el.style.gridRow = environment.auto
+			el.style.height = environment.auto
 			this.scrollToYPosition(el.offsetTop - el.offsetHeight)
 
 		} else if (!isExpanded && !isMaxWidth728) {
-			el.style.gridColumn = env.auto
-			el.style.gridRow = env.auto
-			el.style.height = env.auto
+			el.style.gridColumn = environment.auto
+			el.style.gridRow = environment.auto
+			el.style.height = environment.auto
 			this.scrollToYPosition(el.offsetTop - el.offsetHeight)
 		}
 
