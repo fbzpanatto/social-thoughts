@@ -33,7 +33,6 @@ export class ThoughtsListComponent implements OnInit {
 	#userInputService = inject(UserInputService)
 	#authService = inject(AuthService)
 	#lastDivRef?: HTMLElement
-	#lastScrollY = env.zero
 	#mobileQueryListener: (() => void) | undefined;
 
 	thoughts$: Observable<Thought[]> = new Observable()
@@ -120,7 +119,6 @@ export class ThoughtsListComponent implements OnInit {
 
 			if (isExpanded) { this.isExpanded.update(curr => curr = false) }
 			else { this.isExpanded.update(curr => curr = true) }
-
 			this.#lastDivRef = this.lastDivSettings(clickedThought)
 
 		} else if (this.#lastDivRef && clickedThought.id != this.#lastDivRef.id) {
@@ -137,7 +135,6 @@ export class ThoughtsListComponent implements OnInit {
 
 				this.isExpanded.update(curr => curr = true)
 				this.#lastDivRef = this.lastDivSettings(clickedThought)
-
 			}
 		}
 	}
