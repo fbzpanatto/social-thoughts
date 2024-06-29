@@ -110,7 +110,7 @@ export class ThoughtsListComponent implements OnInit {
 
 		const isExpanded = this.isExpanded()
 
-		if (this.#lastDivRef === undefined) {
+		if (!this.#lastDivRef) {
 
 			this.isExpanded.update(curr => curr = true)
 			this.#lastDivRef = this.lastDivSettings(clickedThought)
